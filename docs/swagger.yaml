@@ -1,0 +1,1593 @@
+basePath: /
+definitions:
+  controllers.CreateAdminRequest:
+    properties:
+      email:
+        example: admin@prangibar.id
+        type: string
+      name:
+        example: Administrator
+        type: string
+      password:
+        example: Admin123!
+        minLength: 6
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  controllers.CreatePrelistRequest:
+    properties:
+      alamat:
+        example: Jl. Sudirman No. 10, Medan
+        type: string
+      b1r1:
+        example: "12"
+        type: string
+      b1r2:
+        example: "1271"
+        type: string
+      b1r3:
+        example: "1271010"
+        type: string
+      b1r4:
+        example: "1271010001"
+        type: string
+      contactPerson:
+        example: Budi Santoso
+        type: string
+      email:
+        example: budi@majubersama.co.id
+        type: string
+      nama:
+        example: PT. Maju Bersama
+        type: string
+      phone:
+        example: 061-12345678
+        type: string
+      skalaUsaha:
+        allOf:
+        - $ref: '#/definitions/models.SkalaUsaha'
+        example: UB
+    required:
+    - nama
+    type: object
+  controllers.LoginRequest:
+    properties:
+      email:
+        example: admin@prangibar.id
+        type: string
+      password:
+        example: Admin123!
+        minLength: 6
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  controllers.LoginResponse:
+    properties:
+      access_token:
+        example: eyJhbGciOiJIUzI1NiIs...
+        type: string
+    type: object
+  controllers.UpdateAdminRequest:
+    properties:
+      email:
+        example: admin@prangibar.id
+        type: string
+      name:
+        example: Administrator
+        type: string
+      password:
+        example: Admin123!
+        type: string
+    type: object
+  controllers.UpdatePrelistRequest:
+    properties:
+      alamat:
+        type: string
+      b1r1:
+        type: string
+      b1r2:
+        type: string
+      b1r3:
+        type: string
+      b1r4:
+        type: string
+      contactPerson:
+        type: string
+      email:
+        type: string
+      nama:
+        type: string
+      phone:
+        type: string
+      skalaUsaha:
+        $ref: '#/definitions/models.SkalaUsaha'
+    type: object
+  models.Admin:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.CheckPendataanRequest:
+    properties:
+      email:
+        example: mahasiswa@example.com
+        type: string
+      nik:
+        example: "1234567890123456"
+        type: string
+    required:
+    - email
+    - nik
+    type: object
+  models.CheckPendataanResponse:
+    properties:
+      email:
+        example: mahasiswa@example.com
+        type: string
+      message:
+        example: Anda sudah terdaftar
+        type: string
+      nik:
+        example: "1234567890123456"
+        type: string
+      registered:
+        example: true
+        type: boolean
+    type: object
+  models.Desa:
+    properties:
+      id:
+        type: integer
+      kecamatanId:
+        type: integer
+      klas:
+        type: integer
+      kode:
+        type: string
+      nama:
+        type: string
+    type: object
+  models.KabupatenKota:
+    properties:
+      id:
+        type: integer
+      kode:
+        type: string
+      nama:
+        type: string
+      provinsiId:
+        type: integer
+    type: object
+  models.Kecamatan:
+    properties:
+      id:
+        type: integer
+      kabupatenKotaId:
+        type: integer
+      kode:
+        type: string
+      nama:
+        type: string
+    type: object
+  models.Pendataan:
+    properties:
+      b1r1:
+        type: string
+      b1r2:
+        type: string
+      b1r3:
+        type: string
+      b1r4:
+        type: string
+      b1r5a:
+        type: string
+      b1r5b:
+        type: string
+      b1r5cAlamat:
+        type: string
+      b1r5cEmail:
+        type: string
+      b1r5cHomepage:
+        type: string
+      b1r5cHp:
+        type: string
+      b1r5cKodePos:
+        type: string
+      b1r5cRt:
+        type: string
+      b1r5cRw:
+        type: string
+      b1r5cTelEkstensi:
+        type: string
+      b1r5cTelKodeArea:
+        type: string
+      b1r5cTelNomor:
+        type: string
+      b1r5d:
+        type: integer
+      b1r5e:
+        type: string
+      b1r6a:
+        type: integer
+      b1r6b:
+        type: string
+      b1r6c:
+        type: integer
+      b1r6cLainnya:
+        type: string
+      b1r7a:
+        type: integer
+      b1r7b:
+        type: integer
+      b1r7c:
+        type: integer
+      b1r7d:
+        type: integer
+      b1r8a:
+        type: string
+      b1r8b:
+        type: integer
+      b1r8c:
+        type: integer
+      b1r8d:
+        type: string
+      b1r9a:
+        type: string
+      b1r9b1:
+        type: integer
+      b1r9b2:
+        type: integer
+      b1r9b3:
+        type: integer
+      b1r9b4:
+        type: integer
+      b1r9c:
+        type: integer
+      b1r9d:
+        type: string
+      b1r9e:
+        type: string
+      b1r9f:
+        type: string
+      b1r9g:
+        type: string
+      b1r9h:
+        type: string
+      b1r9i:
+        type: integer
+      b1r10a:
+        type: integer
+      b1r10b:
+        type: integer
+      b1r11a:
+        type: string
+      b1r11b:
+        type: string
+      b1r11c:
+        type: string
+      b1r11d:
+        type: string
+      b1r11e:
+        type: string
+      b1r11f:
+        type: string
+      b1r12a:
+        type: integer
+      b1r12b1:
+        type: integer
+      b1r12b2:
+        type: integer
+      b1r12b3:
+        type: integer
+      b1r12b4:
+        type: integer
+      b1r12b5:
+        type: integer
+      b1r12b6:
+        type: integer
+      b1r12c:
+        type: integer
+      b1r13a:
+        type: integer
+      b1r13b:
+        type: integer
+      b1r14:
+        type: integer
+      b1r15a:
+        type: integer
+      b1r15b:
+        type: integer
+      b1r15c:
+        type: integer
+      b1r16a:
+        type: integer
+      b1r16b:
+        type: integer
+      b1r16c:
+        type: integer
+      b1r17:
+        type: integer
+      b1r18:
+        type: integer
+      b1r19a:
+        type: integer
+      b1r19b:
+        type: integer
+      b1r20a:
+        type: integer
+      b1r20b:
+        type: integer
+      b1r20c:
+        type: integer
+      b1r21:
+        type: integer
+      b1r22a:
+        type: number
+      b1r22b:
+        type: number
+      b1r22c:
+        type: number
+      b1r22d:
+        type: number
+      b1r22e:
+        type: number
+      b1r22f:
+        type: number
+      b1r23a:
+        type: number
+      b1r23b:
+        type: number
+      b1r23c:
+        type: number
+      b1r23d:
+        type: number
+      b1r24a:
+        type: number
+      b1r24b:
+        type: number
+      b1r24c:
+        type: number
+      b1r24c1:
+        type: integer
+      b1r24d:
+        type: number
+      b1r25a:
+        type: number
+      b1r25b:
+        type: number
+      b1r25c:
+        type: number
+      b1r25d:
+        type: number
+      b1r25e:
+        type: number
+      b1r25f:
+        type: number
+      b1r25g:
+        type: number
+      b2catatan:
+        type: string
+      b3r1:
+        type: string
+      b3r3:
+        type: string
+      b3r4:
+        type: string
+      catatanNgibar:
+        type: string
+      id:
+        type: integer
+      perusahaan:
+        $ref: '#/definitions/models.Perusahaan'
+      perusahaanId:
+        type: integer
+      submittedAt:
+        type: string
+      tanggalPelaksanaan:
+        type: string
+      ttd:
+        type: boolean
+      updatedAt:
+        type: string
+    type: object
+  models.PendataanUmkm:
+    properties:
+      b1r1:
+        type: string
+      b1r2:
+        type: string
+      b1r3:
+        type: string
+      b1r4:
+        type: string
+      b1r5:
+        type: string
+      b1r6:
+        type: string
+      b1r7:
+        type: string
+      b1r8a:
+        type: string
+      b1r8b:
+        type: string
+      b1r8cAlamat:
+        type: string
+      b1r8cEmail:
+        type: string
+      b1r8cHomepage:
+        type: string
+      b1r8cHp:
+        type: string
+      b1r8cKodePos:
+        type: string
+      b1r8cRt:
+        type: string
+      b1r8cRw:
+        type: string
+      b1r8cTelEkstensi:
+        type: string
+      b1r8cTelKodeArea:
+        type: string
+      b1r8cTelNomor:
+        type: string
+      b1r8d:
+        type: integer
+      b1r8e:
+        type: string
+      b1r9a:
+        type: integer
+      b1r9b1:
+        type: string
+      b1r9b2:
+        type: string
+      b1r9b3:
+        type: string
+      b1r10a:
+        type: integer
+      b1r10b:
+        type: string
+      b1r10c:
+        type: integer
+      b1r10cLainnya:
+        type: string
+      b1r11a:
+        type: string
+      b1r11b:
+        type: integer
+      b1r11c:
+        type: integer
+      b1r11d:
+        type: integer
+      b1r12a:
+        type: string
+      b1r12b:
+        type: integer
+      b1r12c:
+        type: integer
+      b1r12d:
+        type: string
+      b1r13a:
+        type: string
+      b1r13b1:
+        type: integer
+      b1r13b2:
+        type: integer
+      b1r13b3:
+        type: integer
+      b1r13b4:
+        type: integer
+      b1r13c:
+        type: integer
+      b1r13d:
+        type: string
+      b1r13e:
+        type: string
+      b1r13f:
+        type: string
+      b1r13g:
+        type: string
+      b1r13h:
+        type: string
+      b1r13i:
+        type: integer
+      b1r14a:
+        type: integer
+      b1r14b:
+        type: integer
+      b1r15a:
+        type: string
+      b1r15b:
+        type: string
+      b1r15c:
+        type: string
+      b1r15d:
+        type: string
+      b1r15e:
+        type: string
+      b1r15f:
+        type: string
+      b1r16a:
+        type: integer
+      b1r16b1:
+        type: integer
+      b1r16b2:
+        type: integer
+      b1r16b3:
+        type: integer
+      b1r16b4:
+        type: integer
+      b1r16b5:
+        type: integer
+      b1r16b6:
+        type: integer
+      b1r16c:
+        type: integer
+      b1r17a:
+        type: integer
+      b1r17b:
+        type: integer
+      b1r18:
+        type: integer
+      b1r19a:
+        type: integer
+      b1r19b:
+        type: integer
+      b1r19c:
+        type: integer
+      b1r20a:
+        type: integer
+      b1r20b:
+        type: integer
+      b1r20c:
+        type: integer
+      b1r21:
+        type: integer
+      b1r22:
+        type: integer
+      b1r23a:
+        type: integer
+      b1r23b:
+        type: integer
+      b1r23c:
+        type: integer
+      b1r24a1:
+        type: integer
+      b1r24a2:
+        type: integer
+      b1r24b1:
+        type: integer
+      b1r24b2:
+        type: integer
+      b1r24c1:
+        type: integer
+      b1r24c2:
+        type: integer
+      b1r25:
+        type: integer
+      b1r26a:
+        type: number
+      b1r26b:
+        type: number
+      b1r26c:
+        type: number
+      b1r26d:
+        type: number
+      b1r26e:
+        type: number
+      b1r26f:
+        type: number
+      b1r27a:
+        type: number
+      b1r27b:
+        type: number
+      b1r27c:
+        type: number
+      b1r27d:
+        type: number
+      b1r28a:
+        type: number
+      b1r28b:
+        type: number
+      b1r28c:
+        type: number
+      b1r28c1:
+        type: integer
+      b1r28d:
+        type: number
+      b1r29a:
+        type: number
+      b1r29b:
+        type: number
+      b1r29c:
+        type: number
+      b1r29d:
+        type: number
+      b1r29e:
+        type: number
+      b1r29f:
+        type: number
+      b1r29g:
+        type: number
+      b1r30a:
+        type: number
+      b1r30b:
+        type: number
+      b1r30c:
+        type: number
+      b1r30d:
+        type: number
+      b1r30e:
+        type: number
+      b1r30f:
+        type: number
+      b1r31a:
+        type: number
+      b1r31b:
+        type: number
+      b1r31c:
+        type: number
+      b1r31d:
+        type: number
+      b1r31e:
+        type: string
+      b1r32a:
+        type: number
+      b1r32b:
+        type: number
+      b1r32c:
+        type: number
+      b1r32c1:
+        type: integer
+      b1r32d:
+        type: number
+      b1r33a:
+        type: number
+      b1r33b:
+        type: number
+      b1r33c:
+        type: number
+      b1r33d:
+        type: number
+      b1r33e:
+        type: number
+      b1r33f:
+        type: number
+      b1r33g:
+        type: number
+      b2catatan:
+        type: string
+      b3r1:
+        type: string
+      b3r3:
+        type: string
+      b3r4:
+        type: string
+      catatanNgibar:
+        type: string
+      id:
+        type: integer
+      perusahaan:
+        $ref: '#/definitions/models.Perusahaan'
+      perusahaanId:
+        type: integer
+      submittedAt:
+        type: string
+      tanggalPelaksanaan:
+        type: string
+      ttd:
+        type: boolean
+      updatedAt:
+        type: string
+    type: object
+  models.Perusahaan:
+    properties:
+      alamat:
+        type: string
+      b1r1:
+        type: string
+      b1r2:
+        type: string
+      b1r3:
+        type: string
+      b1r4:
+        type: string
+      contactPerson:
+        type: string
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      nama:
+        type: string
+      pendataan:
+        $ref: '#/definitions/models.Pendataan'
+      pendataanUmkm:
+        $ref: '#/definitions/models.PendataanUmkm'
+      phone:
+        type: string
+      skalaUsaha:
+        $ref: '#/definitions/models.SkalaUsaha'
+      status:
+        $ref: '#/definitions/models.StatusPendataan'
+      token:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.Provinsi:
+    properties:
+      id:
+        type: integer
+      kode:
+        type: string
+      nama:
+        type: string
+    type: object
+  models.RegisterMahasiswaRequest:
+    properties:
+      email:
+        example: mahasiswa@example.com
+        type: string
+      nik:
+        example: "1234567890123456"
+        type: string
+      pin:
+        example: "123456"
+        maxLength: 6
+        minLength: 6
+        type: string
+      pinConfirm:
+        example: "123456"
+        maxLength: 6
+        minLength: 6
+        type: string
+    required:
+    - email
+    - nik
+    - pin
+    - pinConfirm
+    type: object
+  models.RegisterMahasiswaResponse:
+    properties:
+      email:
+        example: mahasiswa@example.com
+        type: string
+      message:
+        example: Registrasi berhasil
+        type: string
+      nik:
+        example: "1234567890123456"
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+  models.SkalaUsaha:
+    enum:
+    - UB
+    - UMKM
+    type: string
+    x-enum-varnames:
+    - SkalaUB
+    - SkalaUMKM
+  models.StatusPendataan:
+    enum:
+    - BELUM
+    - SELESAI
+    type: string
+    x-enum-varnames:
+    - StatusBelum
+    - StatusSelesai
+  models.VerifyPINRequest:
+    properties:
+      email:
+        example: mahasiswa@example.com
+        type: string
+      nik:
+        example: "1234567890123456"
+        type: string
+      pin:
+        example: "123456"
+        maxLength: 6
+        minLength: 6
+        type: string
+    required:
+    - email
+    - nik
+    - pin
+    type: object
+  models.VerifyPINResponse:
+    properties:
+      message:
+        example: PIN valid
+        type: string
+      valid:
+        example: true
+        type: boolean
+    type: object
+host: localhost:3000
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Backend pendataan perusahaan berbasis kuesioner SE2026 Kuesioner L
+    (UB & UMKM Bangunan Usaha)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Backend pendataan perusahaan SE2026-L.UB
+  version: "1.0"
+paths:
+  /admin:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Admin'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: List semua admin
+      tags:
+      - Admin
+    post:
+      parameters:
+      - description: Admin data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.CreateAdminRequest'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Admin'
+        "409":
+          description: Conflict
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Tambah admin baru
+      tags:
+      - Admin
+  /admin/{id}:
+    delete:
+      parameters:
+      - description: Admin ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Admin'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Hapus admin
+      tags:
+      - Admin
+    get:
+      parameters:
+      - description: Admin ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Admin'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Detail admin
+      tags:
+      - Admin
+    patch:
+      parameters:
+      - description: Admin ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Admin data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UpdateAdminRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Admin'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "409":
+          description: Conflict
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update admin
+      tags:
+      - Admin
+  /admin/me:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Admin'
+      security:
+      - BearerAuth: []
+      summary: Profil admin yang sedang login
+      tags:
+      - Admin
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Mengembalikan JWT access_token untuk endpoint yang dilindungi
+      parameters:
+      - description: Login credentials
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.LoginResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Login admin
+      tags:
+      - Auth
+  /logs:
+    get:
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 50
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Filter by HTTP method
+        in: query
+        name: method
+        type: string
+      - description: Filter by status code
+        in: query
+        name: statusCode
+        type: integer
+      - description: Filter by admin ID
+        in: query
+        name: adminId
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List log aktivitas API
+      tags:
+      - Logs
+  /logs/summary:
+    get:
+      parameters:
+      - default: 7
+        description: Days back
+        in: query
+        name: days
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Ringkasan statistik log API
+      tags:
+      - Logs
+  /mahasiswa/cek-pendataan:
+    post:
+      consumes:
+      - application/json
+      description: Cek apakah mahasiswa sudah terdaftar berdasarkan email dan NIK
+      parameters:
+      - description: Email dan NIK
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CheckPendataanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CheckPendataanResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Cek status pendataan mahasiswa
+      tags:
+      - Mahasiswa
+  /mahasiswa/register:
+    post:
+      consumes:
+      - application/json
+      description: Registrasi mahasiswa dengan email, NIK, dan PIN
+      parameters:
+      - description: Data registrasi
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterMahasiswaRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.RegisterMahasiswaResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "409":
+          description: Conflict
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Registrasi mahasiswa baru
+      tags:
+      - Mahasiswa
+  /mahasiswa/verify-pin:
+    post:
+      consumes:
+      - application/json
+      description: Verifikasi PIN untuk akses pendataan
+      parameters:
+      - description: Email, NIK, dan PIN
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.VerifyPINRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.VerifyPINResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Verifikasi PIN mahasiswa
+      tags:
+      - Mahasiswa
+  /pendataan:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Pendataan'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: List semua pendataan (admin)
+      tags:
+      - Pendataan
+  /pendataan-umkm:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.PendataanUmkm'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: List semua pendataan UMKM (admin)
+      tags:
+      - Pendataan UMKM
+  /pendataan-umkm/{id}:
+    get:
+      parameters:
+      - description: Pendataan UMKM ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PendataanUmkm'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Detail pendataan UMKM (admin)
+      tags:
+      - Pendataan UMKM
+  /pendataan-umkm/form/{token}:
+    get:
+      parameters:
+      - description: Token 64-char hex
+        in: path
+        name: token
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Perusahaan'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get info perusahaan UMKM via token (publik)
+      tags:
+      - Pendataan UMKM
+    post:
+      parameters:
+      - description: Token 64-char hex
+        in: path
+        name: token
+        required: true
+        type: string
+      - description: Kuesioner UMKM data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.PendataanUmkm'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.PendataanUmkm'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Submit kuesioner pendataan UMKM (publik)
+      tags:
+      - Pendataan UMKM
+  /pendataan/{id}:
+    get:
+      parameters:
+      - description: Pendataan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Pendataan'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Detail pendataan (admin)
+      tags:
+      - Pendataan
+  /pendataan/form/{token}:
+    get:
+      parameters:
+      - description: Token 64-char hex
+        in: path
+        name: token
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Perusahaan'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get info perusahaan via token (publik)
+      tags:
+      - Pendataan
+    post:
+      parameters:
+      - description: Token 64-char hex
+        in: path
+        name: token
+        required: true
+        type: string
+      - description: Kuesioner data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.Pendataan'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Pendataan'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Submit kuesioner pendataan (publik)
+      tags:
+      - Pendataan
+  /prelist:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Perusahaan'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: List semua perusahaan target
+      tags:
+      - Prelist
+    post:
+      parameters:
+      - description: Perusahaan data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.CreatePrelistRequest'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Perusahaan'
+      security:
+      - BearerAuth: []
+      summary: Tambah perusahaan target baru
+      tags:
+      - Prelist
+  /prelist/{id}:
+    delete:
+      parameters:
+      - description: Perusahaan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Perusahaan'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Hapus perusahaan
+      tags:
+      - Prelist
+    get:
+      parameters:
+      - description: Perusahaan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Perusahaan'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Detail perusahaan
+      tags:
+      - Prelist
+    put:
+      parameters:
+      - description: Perusahaan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Perusahaan data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UpdatePrelistRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Perusahaan'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update data perusahaan
+      tags:
+      - Prelist
+  /prelist/{id}/token:
+    post:
+      parameters:
+      - description: Perusahaan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Generate token akses pendataan
+      tags:
+      - Prelist
+  /prelist/bulk-token:
+    post:
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Bulk generate token
+      tags:
+      - Prelist
+  /prelist/import:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: File .xlsx atau .xls
+        in: formData
+        name: file
+        required: true
+        type: file
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Import perusahaan dari file Excel
+      tags:
+      - Prelist
+  /prelist/import/template:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: file
+      security:
+      - BearerAuth: []
+      summary: Download template Excel untuk import prelist
+      tags:
+      - Prelist
+  /wilayah/desa:
+    get:
+      parameters:
+      - description: ID Kecamatan
+        in: query
+        name: kecamatanId
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Desa'
+            type: array
+      summary: List desa berdasarkan kecamatan
+      tags:
+      - Wilayah
+  /wilayah/kabupaten-kota:
+    get:
+      parameters:
+      - description: ID Provinsi
+        in: query
+        name: provinsiId
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.KabupatenKota'
+            type: array
+      summary: List kabupaten/kota berdasarkan provinsi
+      tags:
+      - Wilayah
+  /wilayah/kecamatan:
+    get:
+      parameters:
+      - description: ID Kabupaten/Kota
+        in: query
+        name: kabupatenKotaId
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Kecamatan'
+            type: array
+      summary: List kecamatan berdasarkan kabupaten/kota
+      tags:
+      - Wilayah
+  /wilayah/provinsi:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Provinsi'
+            type: array
+      summary: List semua provinsi
+      tags:
+      - Wilayah
+securityDefinitions:
+  BearerAuth:
+    description: Enter the token with the `Bearer ` prefix, e.g. "Bearer abcde12345".
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

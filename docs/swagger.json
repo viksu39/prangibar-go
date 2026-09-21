@@ -1,0 +1,2438 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Backend pendataan perusahaan berbasis kuesioner SE2026 Kuesioner L (UB \u0026 UMKM Bangunan Usaha)",
+        "title": "Backend pendataan perusahaan SE2026-L.UB",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "paths": {
+        "/admin": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "List semua admin",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Admin"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Tambah admin baru",
+                "parameters": [
+                    {
+                        "description": "Admin data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.CreateAdminRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Admin"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/me": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Profil admin yang sedang login",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Admin"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Detail admin",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Admin ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Admin"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Hapus admin",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Admin ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Admin"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Update admin",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Admin ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Admin data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.UpdateAdminRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Admin"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "description": "Mengembalikan JWT access_token untuk endpoint yang dilindungi",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login admin",
+                "parameters": [
+                    {
+                        "description": "Login credentials",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.LoginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.LoginResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logs": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Logs"
+                ],
+                "summary": "List log aktivitas API",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 50,
+                        "description": "Items per page",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter by HTTP method",
+                        "name": "method",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Filter by status code",
+                        "name": "statusCode",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Filter by admin ID",
+                        "name": "adminId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/logs/summary": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Logs"
+                ],
+                "summary": "Ringkasan statistik log API",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 7,
+                        "description": "Days back",
+                        "name": "days",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/mahasiswa/cek-pendataan": {
+            "post": {
+                "description": "Cek apakah mahasiswa sudah terdaftar berdasarkan email dan NIK",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mahasiswa"
+                ],
+                "summary": "Cek status pendataan mahasiswa",
+                "parameters": [
+                    {
+                        "description": "Email dan NIK",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CheckPendataanRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.CheckPendataanResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/mahasiswa/register": {
+            "post": {
+                "description": "Registrasi mahasiswa dengan email, NIK, dan PIN",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mahasiswa"
+                ],
+                "summary": "Registrasi mahasiswa baru",
+                "parameters": [
+                    {
+                        "description": "Data registrasi",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.RegisterMahasiswaRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.RegisterMahasiswaResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/mahasiswa/verify-pin": {
+            "post": {
+                "description": "Verifikasi PIN untuk akses pendataan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mahasiswa"
+                ],
+                "summary": "Verifikasi PIN mahasiswa",
+                "parameters": [
+                    {
+                        "description": "Email, NIK, dan PIN",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.VerifyPINRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.VerifyPINResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pendataan": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Pendataan"
+                ],
+                "summary": "List semua pendataan (admin)",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Pendataan"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pendataan-umkm": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Pendataan UMKM"
+                ],
+                "summary": "List semua pendataan UMKM (admin)",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.PendataanUmkm"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pendataan-umkm/form/{token}": {
+            "get": {
+                "tags": [
+                    "Pendataan UMKM"
+                ],
+                "summary": "Get info perusahaan UMKM via token (publik)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token 64-char hex",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Perusahaan"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Pendataan UMKM"
+                ],
+                "summary": "Submit kuesioner pendataan UMKM (publik)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token 64-char hex",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Kuesioner UMKM data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.PendataanUmkm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.PendataanUmkm"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pendataan-umkm/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Pendataan UMKM"
+                ],
+                "summary": "Detail pendataan UMKM (admin)",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Pendataan UMKM ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.PendataanUmkm"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pendataan/form/{token}": {
+            "get": {
+                "tags": [
+                    "Pendataan"
+                ],
+                "summary": "Get info perusahaan via token (publik)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token 64-char hex",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Perusahaan"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Pendataan"
+                ],
+                "summary": "Submit kuesioner pendataan (publik)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token 64-char hex",
+                        "name": "token",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Kuesioner data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Pendataan"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Pendataan"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pendataan/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Pendataan"
+                ],
+                "summary": "Detail pendataan (admin)",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Pendataan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Pendataan"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/prelist": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Prelist"
+                ],
+                "summary": "List semua perusahaan target",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Perusahaan"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Prelist"
+                ],
+                "summary": "Tambah perusahaan target baru",
+                "parameters": [
+                    {
+                        "description": "Perusahaan data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.CreatePrelistRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Perusahaan"
+                        }
+                    }
+                }
+            }
+        },
+        "/prelist/bulk-token": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Prelist"
+                ],
+                "summary": "Bulk generate token",
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/prelist/import": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "tags": [
+                    "Prelist"
+                ],
+                "summary": "Import perusahaan dari file Excel",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "File .xlsx atau .xls",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/prelist/import/template": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Prelist"
+                ],
+                "summary": "Download template Excel untuk import prelist",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        },
+        "/prelist/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Prelist"
+                ],
+                "summary": "Detail perusahaan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Perusahaan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Perusahaan"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Prelist"
+                ],
+                "summary": "Update data perusahaan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Perusahaan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Perusahaan data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.UpdatePrelistRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Perusahaan"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Prelist"
+                ],
+                "summary": "Hapus perusahaan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Perusahaan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Perusahaan"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/prelist/{id}/token": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Prelist"
+                ],
+                "summary": "Generate token akses pendataan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Perusahaan ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/wilayah/desa": {
+            "get": {
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "List desa berdasarkan kecamatan",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID Kecamatan",
+                        "name": "kecamatanId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Desa"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/wilayah/kabupaten-kota": {
+            "get": {
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "List kabupaten/kota berdasarkan provinsi",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID Provinsi",
+                        "name": "provinsiId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.KabupatenKota"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/wilayah/kecamatan": {
+            "get": {
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "List kecamatan berdasarkan kabupaten/kota",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID Kabupaten/Kota",
+                        "name": "kabupatenKotaId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Kecamatan"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/wilayah/provinsi": {
+            "get": {
+                "tags": [
+                    "Wilayah"
+                ],
+                "summary": "List semua provinsi",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Provinsi"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controllers.CreateAdminRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "name",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "admin@prangibar.id"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Administrator"
+                },
+                "password": {
+                    "type": "string",
+                    "minLength": 6,
+                    "example": "Admin123!"
+                }
+            }
+        },
+        "controllers.CreatePrelistRequest": {
+            "type": "object",
+            "required": [
+                "nama"
+            ],
+            "properties": {
+                "alamat": {
+                    "type": "string",
+                    "example": "Jl. Sudirman No. 10, Medan"
+                },
+                "b1r1": {
+                    "type": "string",
+                    "example": "12"
+                },
+                "b1r2": {
+                    "type": "string",
+                    "example": "1271"
+                },
+                "b1r3": {
+                    "type": "string",
+                    "example": "1271010"
+                },
+                "b1r4": {
+                    "type": "string",
+                    "example": "1271010001"
+                },
+                "contactPerson": {
+                    "type": "string",
+                    "example": "Budi Santoso"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "budi@majubersama.co.id"
+                },
+                "nama": {
+                    "type": "string",
+                    "example": "PT. Maju Bersama"
+                },
+                "phone": {
+                    "type": "string",
+                    "example": "061-12345678"
+                },
+                "skalaUsaha": {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.SkalaUsaha"
+                        }
+                    ],
+                    "example": "UB"
+                }
+            }
+        },
+        "controllers.LoginRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "admin@prangibar.id"
+                },
+                "password": {
+                    "type": "string",
+                    "minLength": 6,
+                    "example": "Admin123!"
+                }
+            }
+        },
+        "controllers.LoginResponse": {
+            "type": "object",
+            "properties": {
+                "access_token": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIs..."
+                }
+            }
+        },
+        "controllers.UpdateAdminRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "admin@prangibar.id"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Administrator"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "Admin123!"
+                }
+            }
+        },
+        "controllers.UpdatePrelistRequest": {
+            "type": "object",
+            "properties": {
+                "alamat": {
+                    "type": "string"
+                },
+                "b1r1": {
+                    "type": "string"
+                },
+                "b1r2": {
+                    "type": "string"
+                },
+                "b1r3": {
+                    "type": "string"
+                },
+                "b1r4": {
+                    "type": "string"
+                },
+                "contactPerson": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "nama": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "skalaUsaha": {
+                    "$ref": "#/definitions/models.SkalaUsaha"
+                }
+            }
+        },
+        "models.Admin": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CheckPendataanRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "nik"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "mahasiswa@example.com"
+                },
+                "nik": {
+                    "type": "string",
+                    "example": "1234567890123456"
+                }
+            }
+        },
+        "models.CheckPendataanResponse": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "mahasiswa@example.com"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Anda sudah terdaftar"
+                },
+                "nik": {
+                    "type": "string",
+                    "example": "1234567890123456"
+                },
+                "registered": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "models.Desa": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kecamatanId": {
+                    "type": "integer"
+                },
+                "klas": {
+                    "type": "integer"
+                },
+                "kode": {
+                    "type": "string"
+                },
+                "nama": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.KabupatenKota": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kode": {
+                    "type": "string"
+                },
+                "nama": {
+                    "type": "string"
+                },
+                "provinsiId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Kecamatan": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kabupatenKotaId": {
+                    "type": "integer"
+                },
+                "kode": {
+                    "type": "string"
+                },
+                "nama": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Pendataan": {
+            "type": "object",
+            "properties": {
+                "b1r1": {
+                    "type": "string"
+                },
+                "b1r10a": {
+                    "type": "integer"
+                },
+                "b1r10b": {
+                    "type": "integer"
+                },
+                "b1r11a": {
+                    "type": "string"
+                },
+                "b1r11b": {
+                    "type": "string"
+                },
+                "b1r11c": {
+                    "type": "string"
+                },
+                "b1r11d": {
+                    "type": "string"
+                },
+                "b1r11e": {
+                    "type": "string"
+                },
+                "b1r11f": {
+                    "type": "string"
+                },
+                "b1r12a": {
+                    "type": "integer"
+                },
+                "b1r12b1": {
+                    "type": "integer"
+                },
+                "b1r12b2": {
+                    "type": "integer"
+                },
+                "b1r12b3": {
+                    "type": "integer"
+                },
+                "b1r12b4": {
+                    "type": "integer"
+                },
+                "b1r12b5": {
+                    "type": "integer"
+                },
+                "b1r12b6": {
+                    "type": "integer"
+                },
+                "b1r12c": {
+                    "type": "integer"
+                },
+                "b1r13a": {
+                    "type": "integer"
+                },
+                "b1r13b": {
+                    "type": "integer"
+                },
+                "b1r14": {
+                    "type": "integer"
+                },
+                "b1r15a": {
+                    "type": "integer"
+                },
+                "b1r15b": {
+                    "type": "integer"
+                },
+                "b1r15c": {
+                    "type": "integer"
+                },
+                "b1r16a": {
+                    "type": "integer"
+                },
+                "b1r16b": {
+                    "type": "integer"
+                },
+                "b1r16c": {
+                    "type": "integer"
+                },
+                "b1r17": {
+                    "type": "integer"
+                },
+                "b1r18": {
+                    "type": "integer"
+                },
+                "b1r19a": {
+                    "type": "integer"
+                },
+                "b1r19b": {
+                    "type": "integer"
+                },
+                "b1r2": {
+                    "type": "string"
+                },
+                "b1r20a": {
+                    "type": "integer"
+                },
+                "b1r20b": {
+                    "type": "integer"
+                },
+                "b1r20c": {
+                    "type": "integer"
+                },
+                "b1r21": {
+                    "type": "integer"
+                },
+                "b1r22a": {
+                    "type": "number"
+                },
+                "b1r22b": {
+                    "type": "number"
+                },
+                "b1r22c": {
+                    "type": "number"
+                },
+                "b1r22d": {
+                    "type": "number"
+                },
+                "b1r22e": {
+                    "type": "number"
+                },
+                "b1r22f": {
+                    "type": "number"
+                },
+                "b1r23a": {
+                    "type": "number"
+                },
+                "b1r23b": {
+                    "type": "number"
+                },
+                "b1r23c": {
+                    "type": "number"
+                },
+                "b1r23d": {
+                    "type": "number"
+                },
+                "b1r24a": {
+                    "type": "number"
+                },
+                "b1r24b": {
+                    "type": "number"
+                },
+                "b1r24c": {
+                    "type": "number"
+                },
+                "b1r24c1": {
+                    "type": "integer"
+                },
+                "b1r24d": {
+                    "type": "number"
+                },
+                "b1r25a": {
+                    "type": "number"
+                },
+                "b1r25b": {
+                    "type": "number"
+                },
+                "b1r25c": {
+                    "type": "number"
+                },
+                "b1r25d": {
+                    "type": "number"
+                },
+                "b1r25e": {
+                    "type": "number"
+                },
+                "b1r25f": {
+                    "type": "number"
+                },
+                "b1r25g": {
+                    "type": "number"
+                },
+                "b1r3": {
+                    "type": "string"
+                },
+                "b1r4": {
+                    "type": "string"
+                },
+                "b1r5a": {
+                    "type": "string"
+                },
+                "b1r5b": {
+                    "type": "string"
+                },
+                "b1r5cAlamat": {
+                    "type": "string"
+                },
+                "b1r5cEmail": {
+                    "type": "string"
+                },
+                "b1r5cHomepage": {
+                    "type": "string"
+                },
+                "b1r5cHp": {
+                    "type": "string"
+                },
+                "b1r5cKodePos": {
+                    "type": "string"
+                },
+                "b1r5cRt": {
+                    "type": "string"
+                },
+                "b1r5cRw": {
+                    "type": "string"
+                },
+                "b1r5cTelEkstensi": {
+                    "type": "string"
+                },
+                "b1r5cTelKodeArea": {
+                    "type": "string"
+                },
+                "b1r5cTelNomor": {
+                    "type": "string"
+                },
+                "b1r5d": {
+                    "type": "integer"
+                },
+                "b1r5e": {
+                    "type": "string"
+                },
+                "b1r6a": {
+                    "type": "integer"
+                },
+                "b1r6b": {
+                    "type": "string"
+                },
+                "b1r6c": {
+                    "type": "integer"
+                },
+                "b1r6cLainnya": {
+                    "type": "string"
+                },
+                "b1r7a": {
+                    "type": "integer"
+                },
+                "b1r7b": {
+                    "type": "integer"
+                },
+                "b1r7c": {
+                    "type": "integer"
+                },
+                "b1r7d": {
+                    "type": "integer"
+                },
+                "b1r8a": {
+                    "type": "string"
+                },
+                "b1r8b": {
+                    "type": "integer"
+                },
+                "b1r8c": {
+                    "type": "integer"
+                },
+                "b1r8d": {
+                    "type": "string"
+                },
+                "b1r9a": {
+                    "type": "string"
+                },
+                "b1r9b1": {
+                    "type": "integer"
+                },
+                "b1r9b2": {
+                    "type": "integer"
+                },
+                "b1r9b3": {
+                    "type": "integer"
+                },
+                "b1r9b4": {
+                    "type": "integer"
+                },
+                "b1r9c": {
+                    "type": "integer"
+                },
+                "b1r9d": {
+                    "type": "string"
+                },
+                "b1r9e": {
+                    "type": "string"
+                },
+                "b1r9f": {
+                    "type": "string"
+                },
+                "b1r9g": {
+                    "type": "string"
+                },
+                "b1r9h": {
+                    "type": "string"
+                },
+                "b1r9i": {
+                    "type": "integer"
+                },
+                "b2catatan": {
+                    "type": "string"
+                },
+                "b3r1": {
+                    "type": "string"
+                },
+                "b3r3": {
+                    "type": "string"
+                },
+                "b3r4": {
+                    "type": "string"
+                },
+                "catatanNgibar": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "perusahaan": {
+                    "$ref": "#/definitions/models.Perusahaan"
+                },
+                "perusahaanId": {
+                    "type": "integer"
+                },
+                "submittedAt": {
+                    "type": "string"
+                },
+                "tanggalPelaksanaan": {
+                    "type": "string"
+                },
+                "ttd": {
+                    "type": "boolean"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.PendataanUmkm": {
+            "type": "object",
+            "properties": {
+                "b1r1": {
+                    "type": "string"
+                },
+                "b1r10a": {
+                    "type": "integer"
+                },
+                "b1r10b": {
+                    "type": "string"
+                },
+                "b1r10c": {
+                    "type": "integer"
+                },
+                "b1r10cLainnya": {
+                    "type": "string"
+                },
+                "b1r11a": {
+                    "type": "string"
+                },
+                "b1r11b": {
+                    "type": "integer"
+                },
+                "b1r11c": {
+                    "type": "integer"
+                },
+                "b1r11d": {
+                    "type": "integer"
+                },
+                "b1r12a": {
+                    "type": "string"
+                },
+                "b1r12b": {
+                    "type": "integer"
+                },
+                "b1r12c": {
+                    "type": "integer"
+                },
+                "b1r12d": {
+                    "type": "string"
+                },
+                "b1r13a": {
+                    "type": "string"
+                },
+                "b1r13b1": {
+                    "type": "integer"
+                },
+                "b1r13b2": {
+                    "type": "integer"
+                },
+                "b1r13b3": {
+                    "type": "integer"
+                },
+                "b1r13b4": {
+                    "type": "integer"
+                },
+                "b1r13c": {
+                    "type": "integer"
+                },
+                "b1r13d": {
+                    "type": "string"
+                },
+                "b1r13e": {
+                    "type": "string"
+                },
+                "b1r13f": {
+                    "type": "string"
+                },
+                "b1r13g": {
+                    "type": "string"
+                },
+                "b1r13h": {
+                    "type": "string"
+                },
+                "b1r13i": {
+                    "type": "integer"
+                },
+                "b1r14a": {
+                    "type": "integer"
+                },
+                "b1r14b": {
+                    "type": "integer"
+                },
+                "b1r15a": {
+                    "type": "string"
+                },
+                "b1r15b": {
+                    "type": "string"
+                },
+                "b1r15c": {
+                    "type": "string"
+                },
+                "b1r15d": {
+                    "type": "string"
+                },
+                "b1r15e": {
+                    "type": "string"
+                },
+                "b1r15f": {
+                    "type": "string"
+                },
+                "b1r16a": {
+                    "type": "integer"
+                },
+                "b1r16b1": {
+                    "type": "integer"
+                },
+                "b1r16b2": {
+                    "type": "integer"
+                },
+                "b1r16b3": {
+                    "type": "integer"
+                },
+                "b1r16b4": {
+                    "type": "integer"
+                },
+                "b1r16b5": {
+                    "type": "integer"
+                },
+                "b1r16b6": {
+                    "type": "integer"
+                },
+                "b1r16c": {
+                    "type": "integer"
+                },
+                "b1r17a": {
+                    "type": "integer"
+                },
+                "b1r17b": {
+                    "type": "integer"
+                },
+                "b1r18": {
+                    "type": "integer"
+                },
+                "b1r19a": {
+                    "type": "integer"
+                },
+                "b1r19b": {
+                    "type": "integer"
+                },
+                "b1r19c": {
+                    "type": "integer"
+                },
+                "b1r2": {
+                    "type": "string"
+                },
+                "b1r20a": {
+                    "type": "integer"
+                },
+                "b1r20b": {
+                    "type": "integer"
+                },
+                "b1r20c": {
+                    "type": "integer"
+                },
+                "b1r21": {
+                    "type": "integer"
+                },
+                "b1r22": {
+                    "type": "integer"
+                },
+                "b1r23a": {
+                    "type": "integer"
+                },
+                "b1r23b": {
+                    "type": "integer"
+                },
+                "b1r23c": {
+                    "type": "integer"
+                },
+                "b1r24a1": {
+                    "type": "integer"
+                },
+                "b1r24a2": {
+                    "type": "integer"
+                },
+                "b1r24b1": {
+                    "type": "integer"
+                },
+                "b1r24b2": {
+                    "type": "integer"
+                },
+                "b1r24c1": {
+                    "type": "integer"
+                },
+                "b1r24c2": {
+                    "type": "integer"
+                },
+                "b1r25": {
+                    "type": "integer"
+                },
+                "b1r26a": {
+                    "type": "number"
+                },
+                "b1r26b": {
+                    "type": "number"
+                },
+                "b1r26c": {
+                    "type": "number"
+                },
+                "b1r26d": {
+                    "type": "number"
+                },
+                "b1r26e": {
+                    "type": "number"
+                },
+                "b1r26f": {
+                    "type": "number"
+                },
+                "b1r27a": {
+                    "type": "number"
+                },
+                "b1r27b": {
+                    "type": "number"
+                },
+                "b1r27c": {
+                    "type": "number"
+                },
+                "b1r27d": {
+                    "type": "number"
+                },
+                "b1r28a": {
+                    "type": "number"
+                },
+                "b1r28b": {
+                    "type": "number"
+                },
+                "b1r28c": {
+                    "type": "number"
+                },
+                "b1r28c1": {
+                    "type": "integer"
+                },
+                "b1r28d": {
+                    "type": "number"
+                },
+                "b1r29a": {
+                    "type": "number"
+                },
+                "b1r29b": {
+                    "type": "number"
+                },
+                "b1r29c": {
+                    "type": "number"
+                },
+                "b1r29d": {
+                    "type": "number"
+                },
+                "b1r29e": {
+                    "type": "number"
+                },
+                "b1r29f": {
+                    "type": "number"
+                },
+                "b1r29g": {
+                    "type": "number"
+                },
+                "b1r3": {
+                    "type": "string"
+                },
+                "b1r30a": {
+                    "type": "number"
+                },
+                "b1r30b": {
+                    "type": "number"
+                },
+                "b1r30c": {
+                    "type": "number"
+                },
+                "b1r30d": {
+                    "type": "number"
+                },
+                "b1r30e": {
+                    "type": "number"
+                },
+                "b1r30f": {
+                    "type": "number"
+                },
+                "b1r31a": {
+                    "type": "number"
+                },
+                "b1r31b": {
+                    "type": "number"
+                },
+                "b1r31c": {
+                    "type": "number"
+                },
+                "b1r31d": {
+                    "type": "number"
+                },
+                "b1r31e": {
+                    "type": "string"
+                },
+                "b1r32a": {
+                    "type": "number"
+                },
+                "b1r32b": {
+                    "type": "number"
+                },
+                "b1r32c": {
+                    "type": "number"
+                },
+                "b1r32c1": {
+                    "type": "integer"
+                },
+                "b1r32d": {
+                    "type": "number"
+                },
+                "b1r33a": {
+                    "type": "number"
+                },
+                "b1r33b": {
+                    "type": "number"
+                },
+                "b1r33c": {
+                    "type": "number"
+                },
+                "b1r33d": {
+                    "type": "number"
+                },
+                "b1r33e": {
+                    "type": "number"
+                },
+                "b1r33f": {
+                    "type": "number"
+                },
+                "b1r33g": {
+                    "type": "number"
+                },
+                "b1r4": {
+                    "type": "string"
+                },
+                "b1r5": {
+                    "type": "string"
+                },
+                "b1r6": {
+                    "type": "string"
+                },
+                "b1r7": {
+                    "type": "string"
+                },
+                "b1r8a": {
+                    "type": "string"
+                },
+                "b1r8b": {
+                    "type": "string"
+                },
+                "b1r8cAlamat": {
+                    "type": "string"
+                },
+                "b1r8cEmail": {
+                    "type": "string"
+                },
+                "b1r8cHomepage": {
+                    "type": "string"
+                },
+                "b1r8cHp": {
+                    "type": "string"
+                },
+                "b1r8cKodePos": {
+                    "type": "string"
+                },
+                "b1r8cRt": {
+                    "type": "string"
+                },
+                "b1r8cRw": {
+                    "type": "string"
+                },
+                "b1r8cTelEkstensi": {
+                    "type": "string"
+                },
+                "b1r8cTelKodeArea": {
+                    "type": "string"
+                },
+                "b1r8cTelNomor": {
+                    "type": "string"
+                },
+                "b1r8d": {
+                    "type": "integer"
+                },
+                "b1r8e": {
+                    "type": "string"
+                },
+                "b1r9a": {
+                    "type": "integer"
+                },
+                "b1r9b1": {
+                    "type": "string"
+                },
+                "b1r9b2": {
+                    "type": "string"
+                },
+                "b1r9b3": {
+                    "type": "string"
+                },
+                "b2catatan": {
+                    "type": "string"
+                },
+                "b3r1": {
+                    "type": "string"
+                },
+                "b3r3": {
+                    "type": "string"
+                },
+                "b3r4": {
+                    "type": "string"
+                },
+                "catatanNgibar": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "perusahaan": {
+                    "$ref": "#/definitions/models.Perusahaan"
+                },
+                "perusahaanId": {
+                    "type": "integer"
+                },
+                "submittedAt": {
+                    "type": "string"
+                },
+                "tanggalPelaksanaan": {
+                    "type": "string"
+                },
+                "ttd": {
+                    "type": "boolean"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Perusahaan": {
+            "type": "object",
+            "properties": {
+                "alamat": {
+                    "type": "string"
+                },
+                "b1r1": {
+                    "type": "string"
+                },
+                "b1r2": {
+                    "type": "string"
+                },
+                "b1r3": {
+                    "type": "string"
+                },
+                "b1r4": {
+                    "type": "string"
+                },
+                "contactPerson": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "nama": {
+                    "type": "string"
+                },
+                "pendataan": {
+                    "$ref": "#/definitions/models.Pendataan"
+                },
+                "pendataanUmkm": {
+                    "$ref": "#/definitions/models.PendataanUmkm"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "skalaUsaha": {
+                    "$ref": "#/definitions/models.SkalaUsaha"
+                },
+                "status": {
+                    "$ref": "#/definitions/models.StatusPendataan"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Provinsi": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "kode": {
+                    "type": "string"
+                },
+                "nama": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.RegisterMahasiswaRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "nik",
+                "pin",
+                "pinConfirm"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "mahasiswa@example.com"
+                },
+                "nik": {
+                    "type": "string",
+                    "example": "1234567890123456"
+                },
+                "pin": {
+                    "type": "string",
+                    "maxLength": 6,
+                    "minLength": 6,
+                    "example": "123456"
+                },
+                "pinConfirm": {
+                    "type": "string",
+                    "maxLength": 6,
+                    "minLength": 6,
+                    "example": "123456"
+                }
+            }
+        },
+        "models.RegisterMahasiswaResponse": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "mahasiswa@example.com"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Registrasi berhasil"
+                },
+                "nik": {
+                    "type": "string",
+                    "example": "1234567890123456"
+                },
+                "success": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "models.SkalaUsaha": {
+            "type": "string",
+            "enum": [
+                "UB",
+                "UMKM"
+            ],
+            "x-enum-varnames": [
+                "SkalaUB",
+                "SkalaUMKM"
+            ]
+        },
+        "models.StatusPendataan": {
+            "type": "string",
+            "enum": [
+                "BELUM",
+                "SELESAI"
+            ],
+            "x-enum-varnames": [
+                "StatusBelum",
+                "StatusSelesai"
+            ]
+        },
+        "models.VerifyPINRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "nik",
+                "pin"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "mahasiswa@example.com"
+                },
+                "nik": {
+                    "type": "string",
+                    "example": "1234567890123456"
+                },
+                "pin": {
+                    "type": "string",
+                    "maxLength": 6,
+                    "minLength": 6,
+                    "example": "123456"
+                }
+            }
+        },
+        "models.VerifyPINResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "PIN valid"
+                },
+                "valid": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "description": "Enter the token with the `Bearer ` prefix, e.g. \"Bearer abcde12345\".",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}
