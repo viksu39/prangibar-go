@@ -14,14 +14,14 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/swaggo/files"
-	"github.com/swaggo/gin-swagger"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"golang.org/x/crypto/bcrypt"
 )
 
 // @title           Backend pendataan perusahaan SE2026-L.UB
 // @version         1.0
-// @description     Backend pendataan perusahaan berbasis kuesioner SE2026 Kuesioner L (UB & UMKM Bangunan Usaha)
+// @description     Backend pendataan perusahaan berbasis kuesioner SE2026 Kuesioner L (UB & UMKM & Mahasiswa)
 // @termsOfService  http://swagger.io/terms/
 
 // @contact.name   API Support

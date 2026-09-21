@@ -3681,7 +3681,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "Backend pendataan perusahaan SE2026-L.UB",
-	Description:      "Backend pendataan perusahaan berbasis kuesioner SE2026 Kuesioner L (UB & UMKM Bangunan Usaha)",
+	Description:      "Backend pendataan perusahaan berbasis kuesioner SE2026 Kuesioner L (UB & UMKM & Mahasiswa)",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

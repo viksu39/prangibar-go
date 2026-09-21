@@ -1481,7 +1481,7 @@ info:
     name: API Support
     url: http://www.swagger.io/support
   description: Backend pendataan perusahaan berbasis kuesioner SE2026 Kuesioner L
-    (UB & UMKM Bangunan Usaha)
+    (UB & UMKM & Mahasiswa)
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html

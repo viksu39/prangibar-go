@@ -50,5 +50,5 @@ coverage.html
 .air.toml
 tmp/
 
-# Swagger generated (optional - comment out if you want to commit docs)
-# docs/
+# Swagger generated (regenerate with: swag init)
+docs/

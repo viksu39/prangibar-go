@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Backend pendataan perusahaan berbasis kuesioner SE2026 Kuesioner L (UB \u0026 UMKM Bangunan Usaha)",
+        "description": "Backend pendataan perusahaan berbasis kuesioner SE2026 Kuesioner L (UB \u0026 UMKM \u0026 Mahasiswa)",
         "title": "Backend pendataan perusahaan SE2026-L.UB",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
