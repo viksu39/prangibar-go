@@ -540,6 +540,281 @@ const docTemplate = `{
                 }
             }
         },
+        "/pendataan-mahasiswa": {
+            "get": {
+                "tags": [
+                    "Pendataan Mahasiswa"
+                ],
+                "summary": "Get pendataan mahasiswa by email or NIK",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Email",
+                        "name": "email",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "NIK",
+                        "name": "nik",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.PendataanMahasiswa"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pendataan-mahasiswa/draft": {
+            "post": {
+                "tags": [
+                    "Pendataan Mahasiswa"
+                ],
+                "summary": "Save draft pendataan mahasiswa",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Email",
+                        "name": "email",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "NIK",
+                        "name": "nik",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "Data pendataan",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.PendataanMahasiswa"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.PendataanMahasiswa"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pendataan-mahasiswa/list": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Pendataan Mahasiswa"
+                ],
+                "summary": "List semua mahasiswa dengan status pendataan",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/services.MahasiswaStatus"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pendataan-mahasiswa/submit": {
+            "post": {
+                "tags": [
+                    "Pendataan Mahasiswa"
+                ],
+                "summary": "Submit pendataan mahasiswa",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Email",
+                        "name": "email",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "NIK",
+                        "name": "nik",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "Data pendataan",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.PendataanMahasiswa"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.PendataanMahasiswa"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pendataan-mahasiswa/verify-pin": {
+            "post": {
+                "tags": [
+                    "Pendataan Mahasiswa"
+                ],
+                "summary": "Verify PIN mahasiswa",
+                "parameters": [
+                    {
+                        "description": "Email, NIK, PIN",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.VerifyPINRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.VerifyPINResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pendataan-mahasiswa/{id}": {
+            "get": {
+                "tags": [
+                    "Pendataan Mahasiswa"
+                ],
+                "summary": "Get pendataan mahasiswa by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID Pendataan",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.PendataanMahasiswa"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "Pendataan Mahasiswa"
+                ],
+                "summary": "Delete pendataan mahasiswa",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID Pendataan",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/pendataan-umkm": {
             "get": {
                 "security": [
@@ -1393,6 +1668,871 @@ const docTemplate = `{
                 }
             }
         },
+        "models.BlokIIIAnggotaKeluarga": {
+            "type": "object",
+            "properties": {
+                "alamatDomisili": {
+                    "description": "1-4",
+                    "type": "integer"
+                },
+                "alzheimer": {
+                    "type": "integer"
+                },
+                "asma": {
+                    "type": "integer"
+                },
+                "diabetes": {
+                    "type": "integer"
+                },
+                "disabilitasFisik": {
+                    "description": "Disabilitas",
+                    "type": "integer"
+                },
+                "disabilitasIntelektual": {
+                    "type": "integer"
+                },
+                "disabilitasMental": {
+                    "type": "integer"
+                },
+                "disabilitasNetra": {
+                    "type": "integer"
+                },
+                "disabilitasRungu": {
+                    "type": "integer"
+                },
+                "disabilitasWicara": {
+                    "type": "integer"
+                },
+                "gagalGinjal": {
+                    "type": "integer"
+                },
+                "hemofilia": {
+                    "type": "integer"
+                },
+                "hipertensi": {
+                    "description": "Penyakit Kronis",
+                    "type": "integer"
+                },
+                "hivAids": {
+                    "type": "integer"
+                },
+                "honor": {
+                    "type": "number"
+                },
+                "hubunganKeluarga": {
+                    "description": "1-9",
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "ijazahTertinggi": {
+                    "description": "0-6",
+                    "type": "integer"
+                },
+                "jenisKelaminAnggota": {
+                    "description": "1: L, 2: P",
+                    "type": "integer"
+                },
+                "kabupatenKotaDomisili": {
+                    "type": "string"
+                },
+                "kanker": {
+                    "type": "integer"
+                },
+                "keberadaanAnggota": {
+                    "description": "1-7",
+                    "type": "integer"
+                },
+                "kolestrol": {
+                    "type": "integer"
+                },
+                "lainnya": {
+                    "type": "number"
+                },
+                "lembur": {
+                    "type": "number"
+                },
+                "leukemia": {
+                    "type": "integer"
+                },
+                "masalahJantung": {
+                    "type": "integer"
+                },
+                "namaAnggota": {
+                    "type": "string"
+                },
+                "negaraDomisili": {
+                    "type": "string"
+                },
+                "nikAnggota": {
+                    "type": "string"
+                },
+                "nomorUrut": {
+                    "type": "string"
+                },
+                "partisipasiSekolah": {
+                    "description": "Pendidikan",
+                    "type": "integer"
+                },
+                "pendapatanLain": {
+                    "description": "1: Ya, 2: Tidak, 9: Tidak tahu",
+                    "type": "integer"
+                },
+                "pendapatanPekerjaan": {
+                    "description": "Pendapatan",
+                    "type": "integer"
+                },
+                "pendapatanUsaha": {
+                    "description": "1: Ya, 2: Tidak, 9: Tidak tahu",
+                    "type": "integer"
+                },
+                "pendataanMahasiswaId": {
+                    "type": "integer"
+                },
+                "penyakitLainnya": {
+                    "type": "string"
+                },
+                "profesiPekerjaan": {
+                    "type": "string"
+                },
+                "provinsiDomisili": {
+                    "type": "string"
+                },
+                "punyaRekening": {
+                    "description": "Rekening",
+                    "type": "integer"
+                },
+                "rematik": {
+                    "type": "integer"
+                },
+                "sirosisHati": {
+                    "type": "integer"
+                },
+                "statusPekerjaan": {
+                    "description": "1-6, 9",
+                    "type": "integer"
+                },
+                "statusPerkawinan": {
+                    "description": "1-4",
+                    "type": "integer"
+                },
+                "stroke": {
+                    "type": "integer"
+                },
+                "talasemia": {
+                    "type": "integer"
+                },
+                "tanggalLahir": {
+                    "type": "string"
+                },
+                "tbc": {
+                    "type": "integer"
+                },
+                "totalPendapatanLain": {
+                    "type": "number"
+                },
+                "totalPendapatanPekerjaan": {
+                    "type": "number"
+                },
+                "totalPendapatanUsaha": {
+                    "type": "number"
+                },
+                "tunjangan": {
+                    "type": "number"
+                },
+                "uangMakan": {
+                    "type": "number"
+                },
+                "umurAnggota": {
+                    "type": "integer"
+                },
+                "upahGaji": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.BlokIIUsaha": {
+            "type": "object",
+            "properties": {
+                "aktivitasUtama": {
+                    "description": "1: Jasa, 2: Pertanian",
+                    "type": "integer"
+                },
+                "alamatKantorPusat": {
+                    "type": "string"
+                },
+                "alamatUsaha": {
+                    "type": "string"
+                },
+                "alasanTidakNIB": {
+                    "description": "1-5",
+                    "type": "integer"
+                },
+                "alasanTidakNIBLainnya": {
+                    "type": "string"
+                },
+                "asetLain2025": {
+                    "type": "number"
+                },
+                "asetLainBulan": {
+                    "type": "number"
+                },
+                "asetTanahBangunan2025": {
+                    "description": "Rincian 28: Nilai Aset 2025",
+                    "type": "number"
+                },
+                "asetTanahBangunanBulan": {
+                    "description": "Rincian 32: Nilai Aset Akhir Bulan",
+                    "type": "number"
+                },
+                "bermitraKDKMP": {
+                    "description": "Rincian 21: Mitra KDKMP",
+                    "type": "integer"
+                },
+                "biayaNonOperasional2025": {
+                    "type": "number"
+                },
+                "biayaNonOperasionalBulan": {
+                    "type": "number"
+                },
+                "biayaOperasional2025": {
+                    "type": "number"
+                },
+                "biayaOperasionalBulan": {
+                    "type": "number"
+                },
+                "biayaPembelian2025": {
+                    "type": "number"
+                },
+                "biayaPembelianBulan": {
+                    "type": "number"
+                },
+                "biayaProduksi2025": {
+                    "type": "number"
+                },
+                "biayaProduksiBulan": {
+                    "type": "number"
+                },
+                "bulanBeroperasi": {
+                    "type": "string"
+                },
+                "ekstensi": {
+                    "type": "string"
+                },
+                "emailKantorPusat": {
+                    "type": "string"
+                },
+                "emailUsaha": {
+                    "type": "string"
+                },
+                "homepage": {
+                    "type": "string"
+                },
+                "inputRamahLingkungan": {
+                    "description": "1: Ya, 2: Tidak",
+                    "type": "integer"
+                },
+                "inputUsaha": {
+                    "type": "string"
+                },
+                "internetBelanja": {
+                    "type": "integer"
+                },
+                "internetDistribusi": {
+                    "type": "integer"
+                },
+                "internetLainnya": {
+                    "type": "integer"
+                },
+                "internetPesanan": {
+                    "type": "integer"
+                },
+                "internetProduksi": {
+                    "type": "integer"
+                },
+                "internetPromosi": {
+                    "type": "integer"
+                },
+                "jaringanUsaha": {
+                    "description": "Rincian 14: Jaringan Usaha",
+                    "type": "integer"
+                },
+                "jenisKawasan": {
+                    "description": "1-10",
+                    "type": "integer"
+                },
+                "jenisKelamin": {
+                    "description": "1: L, 2: P",
+                    "type": "integer"
+                },
+                "jenisKoperasi": {
+                    "description": "1: Open Loop, 2: Close Loop",
+                    "type": "integer"
+                },
+                "jenisUsaha": {
+                    "description": "Rincian 9: Jenis Usaha",
+                    "type": "integer"
+                },
+                "jumlahCabang": {
+                    "type": "integer"
+                },
+                "jumlahVarianBPOM": {
+                    "type": "integer"
+                },
+                "jumlahVarianBelumBPOM": {
+                    "type": "integer"
+                },
+                "jumlahVarianBelumHalal": {
+                    "type": "integer"
+                },
+                "jumlahVarianHalal": {
+                    "type": "integer"
+                },
+                "kabupatenKotaBPS": {
+                    "type": "string"
+                },
+                "kabupatenKotaKP": {
+                    "type": "string"
+                },
+                "kabupatenKotaLokasi": {
+                    "type": "string"
+                },
+                "kategoriLapanganUsaha": {
+                    "type": "string"
+                },
+                "kecamatanBPS": {
+                    "type": "string"
+                },
+                "kegiatanUtama": {
+                    "description": "Rincian 13: Kegiatan Utama",
+                    "type": "string"
+                },
+                "kelurahanBPS": {
+                    "type": "string"
+                },
+                "keterlibatanMBG": {
+                    "description": "Rincian 22: Program MBG",
+                    "type": "integer"
+                },
+                "klasifikasiAkomodasi": {
+                    "description": "1-6",
+                    "type": "integer"
+                },
+                "kodeArea": {
+                    "type": "string"
+                },
+                "kodeKBLI": {
+                    "type": "string"
+                },
+                "kodePosUsaha": {
+                    "type": "string"
+                },
+                "koperasiKDKMP": {
+                    "description": "1: Ya, 2: Tidak",
+                    "type": "integer"
+                },
+                "layananMakanMinum": {
+                    "description": "1: Ya, 2: Tidak",
+                    "type": "integer"
+                },
+                "lokasiUtama": {
+                    "type": "string"
+                },
+                "luasTanah2025": {
+                    "type": "number"
+                },
+                "luasTanahBulan": {
+                    "type": "number"
+                },
+                "memproduksiBarang": {
+                    "description": "1: Ya, 2: Tidak",
+                    "type": "integer"
+                },
+                "menggunakanInternet": {
+                    "description": "Rincian 16: Penggunaan Internet",
+                    "type": "integer"
+                },
+                "modalAsing2025": {
+                    "type": "number"
+                },
+                "modalAsingAwal": {
+                    "type": "number"
+                },
+                "modalNonprofit2025": {
+                    "type": "number"
+                },
+                "modalNonprofitAwal": {
+                    "type": "number"
+                },
+                "modalNonpublik2025": {
+                    "type": "number"
+                },
+                "modalNonpublikAwal": {
+                    "type": "number"
+                },
+                "modalPemerintah2025": {
+                    "type": "number"
+                },
+                "modalPemerintahAwal": {
+                    "type": "number"
+                },
+                "modalPribadi2025": {
+                    "description": "Rincian 29: Kepemilikan Modal 2025",
+                    "type": "number"
+                },
+                "modalPribadiAwal": {
+                    "description": "Rincian 33: Kepemilikan Modal Saat Didirikan",
+                    "type": "number"
+                },
+                "modalPublik2025": {
+                    "type": "number"
+                },
+                "modalPublikAwal": {
+                    "type": "number"
+                },
+                "modalTotal2025": {
+                    "type": "number"
+                },
+                "modalTotalAwal": {
+                    "type": "number"
+                },
+                "namaKantorPusat": {
+                    "description": "Rincian 15: Informasi Kantor Pusat",
+                    "type": "string"
+                },
+                "namaKawasan": {
+                    "type": "string"
+                },
+                "namaKomersial": {
+                    "type": "string"
+                },
+                "namaPengusaha": {
+                    "description": "Rincian 12: Pengusaha/Penanggung Jawab",
+                    "type": "string"
+                },
+                "namaSLSBPS": {
+                    "type": "string"
+                },
+                "namaUsaha": {
+                    "description": "Rincian 8: Nama dan Alamat Usaha",
+                    "type": "string"
+                },
+                "negara": {
+                    "type": "string"
+                },
+                "nikPengusaha": {
+                    "type": "string"
+                },
+                "nilaiProduksi2025": {
+                    "description": "Rincian 27: Nilai Produksi/Penjualan 2025",
+                    "type": "number"
+                },
+                "nilaiProduksiBulan": {
+                    "description": "Rincian 31: Nilai Produksi/Penjualan Satu Bulan",
+                    "type": "number"
+                },
+                "nomorBangunan": {
+                    "type": "string"
+                },
+                "nomorHP": {
+                    "type": "string"
+                },
+                "nomorNIB": {
+                    "type": "string"
+                },
+                "nomorTelepon": {
+                    "type": "string"
+                },
+                "nomorTeleponFull": {
+                    "type": "string"
+                },
+                "nomorUrutUsaha": {
+                    "type": "string"
+                },
+                "pekerjaDibayar": {
+                    "type": "integer"
+                },
+                "pekerjaLakiLaki": {
+                    "description": "Rincian 24: Pekerja",
+                    "type": "integer"
+                },
+                "pekerjaPerempuan": {
+                    "type": "integer"
+                },
+                "pekerjaTidakDibayar": {
+                    "type": "integer"
+                },
+                "pendapatanLain2025": {
+                    "type": "number"
+                },
+                "pendapatanLainBulan": {
+                    "type": "number"
+                },
+                "penjualanBarang": {
+                    "description": "1: Ya, 2: Tidak",
+                    "type": "integer"
+                },
+                "persenOnline2025": {
+                    "type": "number"
+                },
+                "persenOnlineBulan": {
+                    "type": "number"
+                },
+                "produkHalal": {
+                    "description": "Rincian 19: Sertifikat Halal",
+                    "type": "integer"
+                },
+                "produkRamahLingkungan": {
+                    "description": "Rincian 17: Ramah Lingkungan",
+                    "type": "integer"
+                },
+                "produkSeniBudaya": {
+                    "description": "Rincian 18: Karya Seni/Budaya",
+                    "type": "integer"
+                },
+                "produkUtama": {
+                    "type": "string"
+                },
+                "prosesUsaha": {
+                    "type": "string"
+                },
+                "provinsiBPS": {
+                    "description": "Rincian 1-7: Diisi BPS",
+                    "type": "string"
+                },
+                "provinsiKP": {
+                    "type": "string"
+                },
+                "provinsiLokasi": {
+                    "type": "string"
+                },
+                "punyaIzinEdar": {
+                    "description": "Rincian 20: Izin Edar BPOM",
+                    "type": "integer"
+                },
+                "punyaLaporanKeuangan": {
+                    "description": "1: Ya, 2: Tidak",
+                    "type": "integer"
+                },
+                "punyaNIB": {
+                    "description": "Rincian 10: NIB",
+                    "type": "integer"
+                },
+                "rentangAset2025": {
+                    "description": "1-5",
+                    "type": "integer"
+                },
+                "rentangAsetBulan": {
+                    "type": "integer"
+                },
+                "rt": {
+                    "type": "string"
+                },
+                "rw": {
+                    "type": "string"
+                },
+                "statusBadanUsaha": {
+                    "description": "Rincian 11: Status Badan Usaha",
+                    "type": "string"
+                },
+                "tahunBeroperasi": {
+                    "description": "Rincian 25: Tahun Beroperasi",
+                    "type": "integer"
+                },
+                "teknologiDigital": {
+                    "description": "AI/IoT/big data/blockchain/cloud",
+                    "type": "integer"
+                },
+                "tempatUsaha": {
+                    "description": "1-11",
+                    "type": "integer"
+                },
+                "totalAset2025": {
+                    "type": "number"
+                },
+                "totalAsetBulan": {
+                    "type": "number"
+                },
+                "totalPekerja": {
+                    "type": "integer"
+                },
+                "totalPekerjaDibayar": {
+                    "type": "integer"
+                },
+                "totalPendapatan2025": {
+                    "type": "number"
+                },
+                "totalPendapatanBulan": {
+                    "type": "number"
+                },
+                "totalPengeluaran2025": {
+                    "type": "number"
+                },
+                "totalPengeluaranBulan": {
+                    "type": "number"
+                },
+                "transaksiBarang": {
+                    "description": "Rincian 23: Transaksi ke Bukan Penduduk Indonesia",
+                    "type": "integer"
+                },
+                "transaksiJasaBeli": {
+                    "description": "1: Ya, 2: Tidak",
+                    "type": "integer"
+                },
+                "transaksiJasaJual": {
+                    "description": "1: Ya, 2: Tidak",
+                    "type": "integer"
+                },
+                "umurPengusaha": {
+                    "type": "integer"
+                },
+                "upahGaji2025": {
+                    "description": "Rincian 26: Pengeluaran Tahun 2025",
+                    "type": "number"
+                },
+                "upahGajiBulan": {
+                    "description": "Rincian 30: Pengeluaran Satu Bulan Terakhir",
+                    "type": "number"
+                }
+            }
+        },
+        "models.BlokIKeluarga": {
+            "type": "object",
+            "properties": {
+                "alamatLengkap": {
+                    "type": "string"
+                },
+                "alamatSesuaiKK": {
+                    "description": "1: Ya, 2: Tidak",
+                    "type": "integer"
+                },
+                "desaKelurahan": {
+                    "type": "string"
+                },
+                "jumlahAnggotaKeluargaKK": {
+                    "type": "integer"
+                },
+                "jumlahAnggotaKeluargaPendataan": {
+                    "type": "integer"
+                },
+                "kabupatenKota": {
+                    "type": "string"
+                },
+                "kecamatan": {
+                    "type": "string"
+                },
+                "klasifikasiDesaKota": {
+                    "type": "string"
+                },
+                "kodePos": {
+                    "type": "string"
+                },
+                "kodeSLS": {
+                    "type": "string"
+                },
+                "namaJalan": {
+                    "type": "string"
+                },
+                "namaKepalaKeluarga": {
+                    "type": "string"
+                },
+                "namaSLS": {
+                    "type": "string"
+                },
+                "nikKepalaKeluarga": {
+                    "type": "string"
+                },
+                "nomorKK": {
+                    "type": "string"
+                },
+                "nomorRumah": {
+                    "type": "string"
+                },
+                "provinsi": {
+                    "description": "Alamat",
+                    "type": "string"
+                }
+            }
+        },
+        "models.BlokIVKeluarga": {
+            "type": "object",
+            "properties": {
+                "ac": {
+                    "type": "integer"
+                },
+                "bahanAtap": {
+                    "description": "1-8",
+                    "type": "integer"
+                },
+                "bahanDinding": {
+                    "description": "1-7",
+                    "type": "integer"
+                },
+                "bahanLantai": {
+                    "description": "1-9",
+                    "type": "integer"
+                },
+                "buktiKepemilikan": {
+                    "description": "1-4",
+                    "type": "integer"
+                },
+                "dayaListrik": {
+                    "description": "1-5",
+                    "type": "integer"
+                },
+                "emasPerhiasan": {
+                    "type": "number"
+                },
+                "fasilitasBAB": {
+                    "description": "Fasilitas",
+                    "type": "integer"
+                },
+                "idPelangganPLN": {
+                    "type": "string"
+                },
+                "jenisBangunan": {
+                    "description": "Keterangan Perumahan",
+                    "type": "integer"
+                },
+                "jenisKloset": {
+                    "description": "1-4",
+                    "type": "integer"
+                },
+                "jumlahKeluargaRumah": {
+                    "type": "integer"
+                },
+                "jumlahMeteran": {
+                    "type": "integer"
+                },
+                "jumlahRumahLain": {
+                    "type": "integer"
+                },
+                "jumlahTanahLain": {
+                    "type": "integer"
+                },
+                "komputer": {
+                    "type": "integer"
+                },
+                "kondisiAtap": {
+                    "description": "1-4",
+                    "type": "integer"
+                },
+                "kondisiDinding": {
+                    "description": "1-4",
+                    "type": "integer"
+                },
+                "kondisiLantai": {
+                    "description": "1-4",
+                    "type": "integer"
+                },
+                "lemariEs": {
+                    "type": "integer"
+                },
+                "luasLantai": {
+                    "type": "number"
+                },
+                "mobil": {
+                    "type": "integer"
+                },
+                "nilaiKontrak": {
+                    "type": "number"
+                },
+                "nilaiMobil": {
+                    "type": "number"
+                },
+                "nilaiRumahLain": {
+                    "type": "number"
+                },
+                "nilaiSepedaMotor": {
+                    "type": "number"
+                },
+                "nilaiTanahLain": {
+                    "type": "number"
+                },
+                "noMeteran": {
+                    "type": "string"
+                },
+                "nomorLantai": {
+                    "type": "string"
+                },
+                "pengeluaranListrik": {
+                    "type": "number"
+                },
+                "pengeluaranMakanMinggu": {
+                    "type": "number"
+                },
+                "pengeluaranNonMakanBulan": {
+                    "type": "number"
+                },
+                "pengeluaranNonMakanTahun": {
+                    "type": "number"
+                },
+                "pengeluaranPulsa": {
+                    "type": "number"
+                },
+                "perkiraanSewa": {
+                    "type": "number"
+                },
+                "sepedaMotor": {
+                    "type": "integer"
+                },
+                "statusKepemilikan": {
+                    "description": "1-5",
+                    "type": "integer"
+                },
+                "sumberAirMinum": {
+                    "description": "1-11",
+                    "type": "integer"
+                },
+                "sumberPenerangan": {
+                    "description": "1-4",
+                    "type": "integer"
+                },
+                "tabungGas3kg": {
+                    "description": "Kepemilikan Aset",
+                    "type": "integer"
+                },
+                "tabungGas5kg": {
+                    "type": "integer"
+                },
+                "tempatAkhirTinja": {
+                    "description": "1-6",
+                    "type": "integer"
+                }
+            }
+        },
+        "models.BlokVCatatan": {
+            "type": "object",
+            "properties": {
+                "catatan": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.BlokVIPemberiJawaban": {
+            "type": "object",
+            "properties": {
+                "emailPPL": {
+                    "type": "string"
+                },
+                "namaPPL": {
+                    "type": "string"
+                },
+                "nipNms": {
+                    "type": "string"
+                },
+                "nomorHPPPL": {
+                    "type": "string"
+                },
+                "tandaTangan": {
+                    "type": "boolean"
+                },
+                "tanggalPelaksanaan": {
+                    "type": "string"
+                }
+            }
+        },
         "models.CheckPendataanRequest": {
             "type": "object",
             "required": [
@@ -1811,6 +2951,77 @@ const docTemplate = `{
                 },
                 "ttd": {
                     "type": "boolean"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.PendataanMahasiswa": {
+            "type": "object",
+            "properties": {
+                "blokI": {
+                    "description": "Blok I: Keterangan Umum Keluarga",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.BlokIKeluarga"
+                        }
+                    ]
+                },
+                "blokII": {
+                    "description": "Blok II: Keterangan Usaha/Perusahaan",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.BlokIIUsaha"
+                        }
+                    ]
+                },
+                "blokIII": {
+                    "description": "Blok III: Keterangan Sosial Ekonomi Anggota Keluarga",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.BlokIIIAnggotaKeluarga"
+                    }
+                },
+                "blokIV": {
+                    "description": "Blok IV: Keterangan Sosial Ekonomi Keluarga",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.BlokIVKeluarga"
+                        }
+                    ]
+                },
+                "blokV": {
+                    "description": "Blok V: Catatan",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.BlokVCatatan"
+                        }
+                    ]
+                },
+                "blokVI": {
+                    "description": "Blok VI: Keterangan Pemberi Jawaban",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.BlokVIPemberiJawaban"
+                        }
+                    ]
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "nik": {
+                    "type": "string"
+                },
+                "status": {
+                    "description": "DRAFT, SUBMITTED",
+                    "type": "string"
                 },
                 "updatedAt": {
                     "type": "string"
@@ -2429,6 +3640,26 @@ const docTemplate = `{
                 "valid": {
                     "type": "boolean",
                     "example": true
+                }
+            }
+        },
+        "services.MahasiswaStatus": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "nik": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
                 }
             }
         }

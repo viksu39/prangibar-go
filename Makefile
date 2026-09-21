@@ -1,4 +1,4 @@
-.PHONY: help build run dev swagger migrate seed clean test
+.PHONY: help build build-linux run dev swagger migrate seed clean test
 
 APP_NAME=prangibar-go
 MAIN_FILE=main.go
@@ -8,8 +8,11 @@ help: ## Show this help message
 	@echo "Available commands:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
-build: ## Build the application binary
+build: ## Build the application binary (Windows)
 	go build -o $(APP_NAME).exe $(MAIN_FILE)
+
+build-linux: ## Build the application binary for Linux (Ubuntu server)
+	set GOOS=linux&& set GOARCH=amd64&& go build -o $(APP_NAME) $(MAIN_FILE)
 
 run: ## Run the application
 	go run $(MAIN_FILE)
@@ -28,6 +31,7 @@ seed: ## Seed initial data (admin & wilayah)
 
 clean: ## Remove build artifacts
 	rm -f $(APP_NAME).exe
+	rm -f $(APP_NAME)
 	rm -rf docs/
 	go clean
 

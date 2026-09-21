@@ -3,6 +3,8 @@ package config
 import (
 	"log"
 	"os"
+	"path/filepath"
+	"runtime"
 	"strconv"
 	"time"
 
@@ -21,14 +23,13 @@ type Config struct {
 	JWTExpiresIn time.Duration
 	FrontendURL  string
 	CORSOrigin   string
+	BaseURL      string
 }
 
 var App *Config
 
 func Load() *Config {
-	if err := godotenv.Load(); err != nil {
-		log.Println("No .env file found, using environment variables")
-	}
+	loadEnvFile()
 
 	port, _ := strconv.Atoi(getEnv("APP_PORT", "3000"))
 	dbPort, _ := strconv.Atoi(getEnv("DB_PORT", "3306"))
@@ -46,9 +47,42 @@ func Load() *Config {
 		JWTExpiresIn: time.Duration(jwtExp) * time.Hour,
 		FrontendURL:  getEnv("FRONTEND_URL", "http://localhost:5173"),
 		CORSOrigin:   getEnv("CORS_ORIGIN", "http://localhost:5173"),
+		BaseURL:      getEnv("BASE_URL", "http://localhost:8080"),
 	}
 
 	return App
+}
+
+func loadEnvFile() {
+	// Try multiple locations for .env file
+	envPaths := []string{
+		".env",                          // Current working directory
+		"../.env",                       // Parent directory
+		"/etc/prangibar/.env",          // System config directory
+	}
+
+	// Try to get executable directory (works on Linux/Windows)
+	if exePath, err := os.Executable(); err == nil {
+		exeDir := filepath.Dir(exePath)
+		envPaths = append(envPaths, filepath.Join(exeDir, ".env"))
+	}
+
+	// Try to get source directory (for development)
+	if _, filename, _, ok := runtime.Caller(0); ok {
+		srcDir := filepath.Dir(filename)
+		envPaths = append(envPaths, filepath.Join(srcDir, ".env"))
+	}
+
+	for _, path := range envPaths {
+		if _, err := os.Stat(path); err == nil {
+			if err := godotenv.Load(path); err == nil {
+				log.Printf("Loaded .env from: %s", path)
+				return
+			}
+		}
+	}
+
+	log.Println("No .env file found, using environment variables")
 }
 
 func getEnv(key, fallback string) string {

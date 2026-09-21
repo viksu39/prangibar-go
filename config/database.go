@@ -40,5 +40,7 @@ func AutoMigrate(db *gorm.DB) error {
 		&models.PendataanUmkm{},
 		&models.ApiLog{},
 		&models.Mahasiswa{},
+		&models.PendataanMahasiswa{},
+		&models.BlokIIIAnggotaKeluarga{},
 	)
 }
