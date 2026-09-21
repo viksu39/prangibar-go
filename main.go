@@ -61,7 +61,7 @@ func main() {
 	routes.SetupRoutes(r)
 
 	docs.SwaggerInfo.Title = cfg.AppName
-	docs.SwaggerInfo.Description = "Backend pendataan perusahaan berbasis kuesioner SE2026 Kuesioner L (UB & UMKM Bangunan Usaha)"
+	docs.SwaggerInfo.Description = "Backend pendataan perusahaan berbasis kuesioner SE2026 Kuesioner L (UB & UMKM & Mahasiswa)"
 	docs.SwaggerInfo.Version = "1.0"
 
 	scheme := "http"
