@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"prangibar-go/middleware"
 	"prangibar-go/models"
 	"prangibar-go/services"
 
@@ -71,11 +72,21 @@ func (ctrl *PendataanMahasiswaController) GetByID(c *gin.Context) {
 // @Param        request  body      models.VerifyPINRequest  true  "Email, NIK, PIN"
 // @Success      200      {object}  models.VerifyPINResponse
 // @Failure      401      {object}  map[string]string
+// @Failure      423      {object}  map[string]interface{}
 // @Router       /pendataan-mahasiswa/verify-pin [post]
 func (ctrl *PendataanMahasiswaController) VerifyPIN(c *gin.Context) {
 	var req models.VerifyPINRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	lockKey := req.Email + ":" + req.NIK
+	if locked, remaining := middleware.IsPinLocked(lockKey); locked {
+		c.JSON(http.StatusLocked, gin.H{
+			"error":             "Terlalu banyak percobaan PIN salah. Akun dikunci sementara.",
+			"retry_after_seconds": int(remaining.Seconds()),
+		})
 		return
 	}
 
@@ -86,10 +97,18 @@ func (ctrl *PendataanMahasiswaController) VerifyPIN(c *gin.Context) {
 	}
 
 	if !valid {
+		if locked := middleware.RecordPinFailure(lockKey); locked {
+			c.JSON(http.StatusLocked, gin.H{
+				"error":             "Terlalu banyak percobaan PIN salah. Akun dikunci selama 15 menit.",
+				"retry_after_seconds": 900,
+			})
+			return
+		}
 		c.JSON(http.StatusUnauthorized, gin.H{"valid": false, "message": "PIN salah"})
 		return
 	}
 
+	middleware.ResetPinAttempts(lockKey)
 	c.JSON(http.StatusOK, gin.H{"valid": true, "message": "PIN valid"})
 }
 

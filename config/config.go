@@ -11,6 +11,22 @@ import (
 	"github.com/joho/godotenv"
 )
 
+type RateLimitConfig struct {
+	RequestsPerMinute int
+	WindowSeconds     int
+}
+
+type PinLockoutConfig struct {
+	MaxAttempts        int
+	LockoutMinutes     int
+	WindowMinutes      int
+}
+
+type SecurityConfig struct {
+	RateLimit  RateLimitConfig
+	PinLockout PinLockoutConfig
+}
+
 type Config struct {
 	AppPort      int
 	AppName      string
@@ -24,6 +40,7 @@ type Config struct {
 	FrontendURL  string
 	CORSOrigin   string
 	BaseURL      string
+	Security     SecurityConfig
 }
 
 var App *Config
@@ -34,6 +51,12 @@ func Load() *Config {
 	port, _ := strconv.Atoi(getEnv("APP_PORT", "3000"))
 	dbPort, _ := strconv.Atoi(getEnv("DB_PORT", "3306"))
 	jwtExp, _ := strconv.Atoi(getEnv("JWT_EXPIRES_IN_HOURS", "168"))
+
+	rateLimitReq, _ := strconv.Atoi(getEnv("RATE_LIMIT_REQ_PER_MIN", "60"))
+	rateLimitWin, _ := strconv.Atoi(getEnv("RATE_LIMIT_WINDOW_SEC", "60"))
+	pinMaxAttempts, _ := strconv.Atoi(getEnv("PIN_MAX_ATTEMPTS", "5"))
+	pinLockoutMin, _ := strconv.Atoi(getEnv("PIN_LOCKOUT_MINUTES", "15"))
+	pinWindowMin, _ := strconv.Atoi(getEnv("PIN_WINDOW_MINUTES", "10"))
 
 	App = &Config{
 		AppPort:      port,
@@ -48,6 +71,17 @@ func Load() *Config {
 		FrontendURL:  getEnv("FRONTEND_URL", "http://localhost:5173"),
 		CORSOrigin:   getEnv("CORS_ORIGIN", "http://localhost:5173"),
 		BaseURL:      getEnv("BASE_URL", "http://localhost:8080"),
+		Security: SecurityConfig{
+			RateLimit: RateLimitConfig{
+				RequestsPerMinute: rateLimitReq,
+				WindowSeconds:     rateLimitWin,
+			},
+			PinLockout: PinLockoutConfig{
+				MaxAttempts:    pinMaxAttempts,
+				LockoutMinutes: pinLockoutMin,
+				WindowMinutes:  pinWindowMin,
+			},
+		},
 	}
 
 	return App

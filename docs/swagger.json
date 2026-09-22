@@ -506,6 +506,13 @@
                                 "type": "string"
                             }
                         }
+                    },
+                    "423": {
+                        "description": "Locked",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
                     }
                 }
             }
@@ -739,6 +746,13 @@
                             "additionalProperties": {
                                 "type": "string"
                             }
+                        }
+                    },
+                    "423": {
+                        "description": "Locked",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
                         }
                     }
                 }
@@ -3653,6 +3667,9 @@
                     "type": "string"
                 },
                 "status": {
+                    "type": "string"
+                },
+                "updatedAt": {
                     "type": "string"
                 }
             }

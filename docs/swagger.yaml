@@ -1473,6 +1473,8 @@ definitions:
         type: string
       status:
         type: string
+      updatedAt:
+        type: string
     type: object
 host: localhost:3000
 info:
@@ -1797,6 +1799,11 @@ paths:
             additionalProperties:
               type: string
             type: object
+        "423":
+          description: Locked
+          schema:
+            additionalProperties: true
+            type: object
       summary: Verifikasi PIN mahasiswa
       tags:
       - Mahasiswa
@@ -1987,6 +1994,11 @@ paths:
           schema:
             additionalProperties:
               type: string
+            type: object
+        "423":
+          description: Locked
+          schema:
+            additionalProperties: true
             type: object
       summary: Verify PIN mahasiswa
       tags:

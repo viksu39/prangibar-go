@@ -17,7 +17,7 @@ func APILogger() gin.HandlerFunc {
 		statusCode := c.Writer.Status()
 		responseTime := time.Since(start).Milliseconds()
 
-		ip := c.ClientIP()
+		ip := getRealIP(c)
 		userAgent := c.Request.UserAgent()
 		adminID, _ := c.Get("adminID")
 		var adminIDPtr *uint

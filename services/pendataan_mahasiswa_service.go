@@ -120,12 +120,13 @@ type MahasiswaStatus struct {
 	NIK       string `json:"nik"`
 	Status    string `json:"status"`
 	CreatedAt string `json:"createdAt"`
+	UpdatedAt string `json:"updatedAt"`
 }
 
 func (s *PendataanMahasiswaService) ListWithStatus() ([]MahasiswaStatus, error) {
 	var results []MahasiswaStatus
 	err := config.DB.Model(&models.PendataanMahasiswa{}).
-		Select("id, email, nik, status, created_at as createdAt").
+		Select("id, email, nik, status, created_at as createdAt, updated_at as updatedAt").
 		Order("createdAt DESC").
 		Scan(&results).Error
 	if err != nil {
