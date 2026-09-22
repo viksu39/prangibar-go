@@ -21,7 +21,7 @@ func (s *AdminService) FindByEmail(email string) (*models.Admin, error) {
 
 func (s *AdminService) FindAll() ([]models.Admin, error) {
 	var admins []models.Admin
-	if err := config.DB.Order("created_at ASC").Find(&admins).Error; err != nil {
+	if err := config.DB.Order("createdAt ASC").Find(&admins).Error; err != nil {
 		return nil, err
 	}
 	return admins, nil

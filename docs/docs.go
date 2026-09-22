@@ -1287,7 +1287,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/controllers.UpdatePrelistRequest"
+                            "$ref": "#/definitions/models.UpdatePrelistRequest"
                         }
                     }
                 ],
@@ -1610,41 +1610,6 @@ const docTemplate = `{
                 "password": {
                     "type": "string",
                     "example": "Admin123!"
-                }
-            }
-        },
-        "controllers.UpdatePrelistRequest": {
-            "type": "object",
-            "properties": {
-                "alamat": {
-                    "type": "string"
-                },
-                "b1r1": {
-                    "type": "string"
-                },
-                "b1r2": {
-                    "type": "string"
-                },
-                "b1r3": {
-                    "type": "string"
-                },
-                "b1r4": {
-                    "type": "string"
-                },
-                "contactPerson": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "nama": {
-                    "type": "string"
-                },
-                "phone": {
-                    "type": "string"
-                },
-                "skalaUsaha": {
-                    "$ref": "#/definitions/models.SkalaUsaha"
                 }
             }
         },
@@ -3605,6 +3570,41 @@ const docTemplate = `{
                 "StatusBelum",
                 "StatusSelesai"
             ]
+        },
+        "models.UpdatePrelistRequest": {
+            "type": "object",
+            "properties": {
+                "alamat": {
+                    "type": "string"
+                },
+                "b1r1": {
+                    "type": "string"
+                },
+                "b1r2": {
+                    "type": "string"
+                },
+                "b1r3": {
+                    "type": "string"
+                },
+                "b1r4": {
+                    "type": "string"
+                },
+                "contactPerson": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "nama": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "skalaUsaha": {
+                    "$ref": "#/definitions/models.SkalaUsaha"
+                }
+            }
         },
         "models.VerifyPINRequest": {
             "type": "object",

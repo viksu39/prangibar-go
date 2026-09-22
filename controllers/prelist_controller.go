@@ -37,19 +37,6 @@ type CreatePrelistRequest struct {
 	SkalaUsaha    *models.SkalaUsaha `json:"skalaUsaha" example:"UB"`
 }
 
-type UpdatePrelistRequest struct {
-	Nama          *string            `json:"nama"`
-	Alamat        *string            `json:"alamat"`
-	ContactPerson *string            `json:"contactPerson"`
-	Email         *string            `json:"email"`
-	Phone         *string            `json:"phone"`
-	B1R1          *string            `json:"b1r1"`
-	B1R2          *string            `json:"b1r2"`
-	B1R3          *string            `json:"b1r3"`
-	B1R4          *string            `json:"b1r4"`
-	SkalaUsaha    *models.SkalaUsaha `json:"skalaUsaha"`
-}
-
 // @Summary      List semua perusahaan target
 // @Tags         Prelist
 // @Security     BearerAuth
@@ -120,14 +107,14 @@ func (ctrl *PrelistController) Create(c *gin.Context) {
 // @Tags         Prelist
 // @Security     BearerAuth
 // @Param        id       path      int                  true  "Perusahaan ID"
-// @Param        request  body      UpdatePrelistRequest  true  "Perusahaan data"
+// @Param        request  body      models.UpdatePrelistRequest  true  "Perusahaan data"
 // @Success      200      {object}  models.Perusahaan
 // @Failure      404      {object}  map[string]string
 // @Router       /prelist/{id} [put]
-func (ctrl *PrelistController) Update(c *gin.Context) {
+	func (ctrl *PrelistController) Update(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	var req UpdatePrelistRequest
+	var req models.UpdatePrelistRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

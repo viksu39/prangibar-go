@@ -51,7 +51,7 @@ func (s *PendataanService) Submit(token string, pendataan *models.Pendataan) (*m
 
 func (s *PendataanService) FindAll() ([]models.Pendataan, error) {
 	var pendataan []models.Pendataan
-	if err := config.DB.Preload("Perusahaan").Order("submitted_at DESC").Find(&pendataan).Error; err != nil {
+	if err := config.DB.Preload("Perusahaan").Order("submittedAt DESC").Find(&pendataan).Error; err != nil {
 		return nil, err
 	}
 	return pendataan, nil

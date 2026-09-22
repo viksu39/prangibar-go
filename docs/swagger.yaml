@@ -84,29 +84,6 @@ definitions:
         example: Admin123!
         type: string
     type: object
-  controllers.UpdatePrelistRequest:
-    properties:
-      alamat:
-        type: string
-      b1r1:
-        type: string
-      b1r2:
-        type: string
-      b1r3:
-        type: string
-      b1r4:
-        type: string
-      contactPerson:
-        type: string
-      email:
-        type: string
-      nama:
-        type: string
-      phone:
-        type: string
-      skalaUsaha:
-        $ref: '#/definitions/models.SkalaUsaha'
-    type: object
   models.Admin:
     properties:
       createdAt:
@@ -1434,6 +1411,29 @@ definitions:
     x-enum-varnames:
     - StatusBelum
     - StatusSelesai
+  models.UpdatePrelistRequest:
+    properties:
+      alamat:
+        type: string
+      b1r1:
+        type: string
+      b1r2:
+        type: string
+      b1r3:
+        type: string
+      b1r4:
+        type: string
+      contactPerson:
+        type: string
+      email:
+        type: string
+      nama:
+        type: string
+      phone:
+        type: string
+      skalaUsaha:
+        $ref: '#/definitions/models.SkalaUsaha'
+    type: object
   models.VerifyPINRequest:
     properties:
       email:
@@ -2254,7 +2254,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/controllers.UpdatePrelistRequest'
+          $ref: '#/definitions/models.UpdatePrelistRequest'
       responses:
         "200":
           description: OK

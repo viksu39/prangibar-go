@@ -126,7 +126,7 @@ func (s *PendataanMahasiswaService) ListWithStatus() ([]MahasiswaStatus, error) 
 	var results []MahasiswaStatus
 	err := config.DB.Model(&models.PendataanMahasiswa{}).
 		Select("id, email, nik, status, created_at as createdAt").
-		Order("created_at DESC").
+		Order("createdAt DESC").
 		Scan(&results).Error
 	if err != nil {
 		return nil, err

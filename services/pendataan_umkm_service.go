@@ -52,7 +52,7 @@ func (s *PendataanUmkmService) Submit(token string, pendataan *models.PendataanU
 
 func (s *PendataanUmkmService) FindAll() ([]models.PendataanUmkm, error) {
 	var pendataan []models.PendataanUmkm
-	if err := config.DB.Preload("Perusahaan").Order("submitted_at DESC").Find(&pendataan).Error; err != nil {
+	if err := config.DB.Preload("Perusahaan").Order("submittedAt DESC").Find(&pendataan).Error; err != nil {
 		return nil, err
 	}
 	return pendataan, nil

@@ -37,7 +37,7 @@ func (ctrl *WilayahController) GetProvinsi(c *gin.Context) {
 func (ctrl *WilayahController) GetKabupatenKota(c *gin.Context) {
 	provinsiID, _ := strconv.Atoi(c.Query("provinsiId"))
 	var kabupatenKota []models.KabupatenKota
-	if err := config.DB.Where("provinsi_id = ?", provinsiID).Order("kode ASC").Find(&kabupatenKota).Error; err != nil {
+	if err := 	config.DB.Where("provinsiId = ?", provinsiID).Order("kode ASC").Find(&kabupatenKota).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -52,7 +52,7 @@ func (ctrl *WilayahController) GetKabupatenKota(c *gin.Context) {
 func (ctrl *WilayahController) GetKecamatan(c *gin.Context) {
 	kabupatenKotaID, _ := strconv.Atoi(c.Query("kabupatenKotaId"))
 	var kecamatan []models.Kecamatan
-	if err := config.DB.Where("kabupaten_kota_id = ?", kabupatenKotaID).Order("kode ASC").Find(&kecamatan).Error; err != nil {
+	if err := 	config.DB.Where("kabupatenKotaId = ?", kabupatenKotaID).Order("kode ASC").Find(&kecamatan).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -67,7 +67,7 @@ func (ctrl *WilayahController) GetKecamatan(c *gin.Context) {
 func (ctrl *WilayahController) GetDesa(c *gin.Context) {
 	kecamatanID, _ := strconv.Atoi(c.Query("kecamatanId"))
 	var desa []models.Desa
-	if err := config.DB.Where("kecamatan_id = ?", kecamatanID).Order("kode ASC").Find(&desa).Error; err != nil {
+	if err := 	config.DB.Where("kecamatanId = ?", kecamatanID).Order("kode ASC").Find(&desa).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}

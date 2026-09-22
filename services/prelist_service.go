@@ -20,7 +20,7 @@ func NewPrelistService() *PrelistService {
 
 func (s *PrelistService) FindAll() ([]models.Perusahaan, error) {
 	var perusahaan []models.Perusahaan
-	if err := config.DB.Order("created_at DESC").Find(&perusahaan).Error; err != nil {
+	if err := config.DB.Order("createdAt DESC").Find(&perusahaan).Error; err != nil {
 		return nil, err
 	}
 	return perusahaan, nil
@@ -41,46 +41,41 @@ func (s *PrelistService) Create(perusahaan *models.Perusahaan) (*models.Perusaha
 	return perusahaan, nil
 }
 
-func (s *PrelistService) Update(id uint, req interface{}) (*models.Perusahaan, error) {
+func (s *PrelistService) Update(id uint, req models.UpdatePrelistRequest) (*models.Perusahaan, error) {
 	perusahaan, err := s.FindOne(id)
 	if err != nil {
 		return nil, err
 	}
 
-	updateReq, ok := req.(UpdatePrelistRequest)
-	if !ok {
-		return nil, fmt.Errorf("invalid request type")
+	if req.Nama != nil {
+		perusahaan.Nama = *req.Nama
 	}
-
-	if updateReq.Nama != nil {
-		perusahaan.Nama = *updateReq.Nama
+	if req.Alamat != nil {
+		perusahaan.Alamat = req.Alamat
 	}
-	if updateReq.Alamat != nil {
-		perusahaan.Alamat = updateReq.Alamat
+	if req.ContactPerson != nil {
+		perusahaan.ContactPerson = req.ContactPerson
 	}
-	if updateReq.ContactPerson != nil {
-		perusahaan.ContactPerson = updateReq.ContactPerson
+	if req.Email != nil {
+		perusahaan.Email = req.Email
 	}
-	if updateReq.Email != nil {
-		perusahaan.Email = updateReq.Email
+	if req.Phone != nil {
+		perusahaan.Phone = req.Phone
 	}
-	if updateReq.Phone != nil {
-		perusahaan.Phone = updateReq.Phone
+	if req.B1R1 != nil {
+		perusahaan.B1R1 = req.B1R1
 	}
-	if updateReq.B1R1 != nil {
-		perusahaan.B1R1 = updateReq.B1R1
+	if req.B1R2 != nil {
+		perusahaan.B1R2 = req.B1R2
 	}
-	if updateReq.B1R2 != nil {
-		perusahaan.B1R2 = updateReq.B1R2
+	if req.B1R3 != nil {
+		perusahaan.B1R3 = req.B1R3
 	}
-	if updateReq.B1R3 != nil {
-		perusahaan.B1R3 = updateReq.B1R3
+	if req.B1R4 != nil {
+		perusahaan.B1R4 = req.B1R4
 	}
-	if updateReq.B1R4 != nil {
-		perusahaan.B1R4 = updateReq.B1R4
-	}
-	if updateReq.SkalaUsaha != nil {
-		perusahaan.SkalaUsaha = updateReq.SkalaUsaha
+	if req.SkalaUsaha != nil {
+		perusahaan.SkalaUsaha = req.SkalaUsaha
 	}
 
 	if err := config.DB.Save(perusahaan).Error; err != nil {
@@ -248,15 +243,4 @@ func (s *PrelistService) BulkImport(buffer []byte) (map[string]interface{}, erro
 	}, nil
 }
 
-type UpdatePrelistRequest struct {
-	Nama          *string
-	Alamat        *string
-	ContactPerson *string
-	Email         *string
-	Phone         *string
-	B1R1          *string
-	B1R2          *string
-	B1R3          *string
-	B1R4          *string
-	SkalaUsaha    *models.SkalaUsaha
-}
+
