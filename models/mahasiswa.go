@@ -7,7 +7,7 @@ import (
 )
 
 type Mahasiswa struct {
-	ID        uint           `gorm:"primarykey" json:"id"`
+	ID        int32 `gorm:"primarykey" json:"id"`
 	Email     string         `gorm:"unique;not null;index" json:"email"`
 	NIK       string         `gorm:"unique;not null;index" json:"nik"`
 	PIN       string         `gorm:"not null" json:"-"`

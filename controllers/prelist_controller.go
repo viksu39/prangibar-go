@@ -60,7 +60,7 @@ func (ctrl *PrelistController) FindAll(c *gin.Context) {
 // @Router       /prelist/{id} [get]
 func (ctrl *PrelistController) FindOne(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	perusahaan, err := ctrl.prelistService.FindOne(uint(id))
+	perusahaan, err := ctrl.prelistService.FindOne(int32(id))
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Perusahaan tidak ditemukan"})
 		return
@@ -120,7 +120,7 @@ func (ctrl *PrelistController) Create(c *gin.Context) {
 		return
 	}
 
-	updated, err := ctrl.prelistService.Update(uint(id), req)
+	updated, err := ctrl.prelistService.Update(int32(id), req)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Perusahaan tidak ditemukan"})
 		return
@@ -138,7 +138,7 @@ func (ctrl *PrelistController) Create(c *gin.Context) {
 // @Router       /prelist/{id} [delete]
 func (ctrl *PrelistController) Delete(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	deleted, err := ctrl.prelistService.Delete(uint(id))
+	deleted, err := ctrl.prelistService.Delete(int32(id))
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Perusahaan tidak ditemukan"})
 		return
@@ -156,7 +156,7 @@ func (ctrl *PrelistController) Delete(c *gin.Context) {
 func (ctrl *PrelistController) GenerateToken(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	perusahaan, err := ctrl.prelistService.FindOne(uint(id))
+	perusahaan, err := ctrl.prelistService.FindOne(int32(id))
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Perusahaan tidak ditemukan"})
 		return

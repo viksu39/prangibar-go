@@ -7,10 +7,10 @@ import (
 )
 
 type Admin struct {
-	ID        uint           `gorm:"primarykey" json:"id"`
-	Email     string         `gorm:"unique;not null" json:"email"`
-	Name      string         `gorm:"not null" json:"name"`
-	Password  string         `gorm:"not null" json:"-"`
+	ID        int32           `gorm:"primarykey" json:"id"`
+	Email     string         `gorm:"type:varchar(191);unique;not null" json:"email"`
+	Name      string         `gorm:"type:varchar(191);not null" json:"name"`
+	Password  string         `gorm:"type:varchar(191);not null" json:"-"`
 	CreatedAt time.Time      `gorm:"column:createdAt" json:"createdAt"`
 	UpdatedAt time.Time      `gorm:"column:updatedAt" json:"updatedAt"`
 	DeletedAt gorm.DeletedAt `gorm:"index;column:deletedAt" json:"-"`
@@ -19,19 +19,19 @@ type Admin struct {
 func (Admin) TableName() string { return "admin" }
 
 type Provinsi struct {
-	ID            uint           `gorm:"primarykey" json:"id"`
-	Kode          string         `gorm:"unique;not null" json:"kode"`
-	Nama          string         `gorm:"not null" json:"nama"`
+	ID        int32           `gorm:"primarykey" json:"id"`
+	Kode          string         `gorm:"type:varchar(10);unique;not null" json:"kode"`
+	Nama          string         `gorm:"type:varchar(191);not null" json:"nama"`
 	KabupatenKota []KabupatenKota `json:"-"`
 }
 
 func (Provinsi) TableName() string { return "provinsi" }
 
 type KabupatenKota struct {
-	ID         uint        `gorm:"primarykey" json:"id"`
-	Kode       string      `gorm:"not null" json:"kode"`
-	Nama       string      `gorm:"not null" json:"nama"`
-	ProvinsiID uint        `gorm:"not null;column:provinsiId" json:"provinsiId"`
+	ID        int32           `gorm:"primarykey" json:"id"`
+	Kode       string      `gorm:"type:varchar(10);uniqueIndex;not null" json:"kode"`
+	Nama       string      `gorm:"type:varchar(191);not null" json:"nama"`
+	ProvinsiID int32       `gorm:"not null;column:provinsiId" json:"provinsiId"`
 	Provinsi   Provinsi    `json:"-"`
 	Kecamatan  []Kecamatan `json:"-"`
 }
@@ -39,10 +39,10 @@ type KabupatenKota struct {
 func (KabupatenKota) TableName() string { return "kabupatenkota" }
 
 type Kecamatan struct {
-	ID              uint           `gorm:"primarykey" json:"id"`
-	Kode            string         `gorm:"not null" json:"kode"`
-	Nama            string         `gorm:"not null" json:"nama"`
-	KabupatenKotaID uint           `gorm:"not null;column:kabupatenKotaId" json:"kabupatenKotaId"`
+	ID        int32           `gorm:"primarykey" json:"id"`
+	Kode            string         `gorm:"type:varchar(10);uniqueIndex;not null" json:"kode"`
+	Nama            string         `gorm:"type:varchar(191);not null" json:"nama"`
+	KabupatenKotaID int32          `gorm:"not null;column:kabupatenKotaId" json:"kabupatenKotaId"`
 	KabupatenKota   KabupatenKota  `json:"-"`
 	Desa            []Desa         `json:"-"`
 }
@@ -50,11 +50,11 @@ type Kecamatan struct {
 func (Kecamatan) TableName() string { return "kecamatan" }
 
 type Desa struct {
-	ID          uint      `gorm:"primarykey" json:"id"`
-	Kode        string    `gorm:"not null" json:"kode"`
-	Nama        string    `gorm:"not null" json:"nama"`
+	ID        int32           `gorm:"primarykey" json:"id"`
+	Kode        string    `gorm:"type:varchar(10);uniqueIndex;not null" json:"kode"`
+	Nama        string    `gorm:"type:varchar(191);not null" json:"nama"`
 	Klas        *int      `json:"klas"`
-	KecamatanID uint      `gorm:"not null;column:kecamatanId" json:"kecamatanId"`
+	KecamatanID int32     `gorm:"not null;column:kecamatanId" json:"kecamatanId"`
 	Kecamatan   Kecamatan `json:"-"`
 }
 
@@ -75,7 +75,7 @@ const (
 )
 
 type Perusahaan struct {
-	ID            uint             `gorm:"primarykey" json:"id"`
+	ID        int32           `gorm:"primarykey" json:"id"`
 	Nama          string           `gorm:"not null" json:"nama"`
 	Alamat        *string          `json:"alamat"`
 	ContactPerson *string          `gorm:"column:contactPerson" json:"contactPerson"`
@@ -97,8 +97,8 @@ type Perusahaan struct {
 func (Perusahaan) TableName() string { return "perusahaan" }
 
 type Pendataan struct {
-	ID           uint      `gorm:"primarykey" json:"id"`
-	PerusahaanID uint      `gorm:"unique;not null;column:perusahaanId" json:"perusahaanId"`
+	ID           int32 `gorm:"primarykey" json:"id"`
+	PerusahaanID int32 `gorm:"unique;not null;column:perusahaanId" json:"perusahaanId"`
 	Perusahaan   Perusahaan `json:"perusahaan,omitempty"`
 
 	B1R1  *string `gorm:"type:varchar(2)" json:"b1r1"`
@@ -237,8 +237,8 @@ type Pendataan struct {
 func (Pendataan) TableName() string { return "pendataan" }
 
 type PendataanUmkm struct {
-	ID           uint      `gorm:"primarykey" json:"id"`
-	PerusahaanID uint      `gorm:"unique;not null" json:"perusahaanId"`
+	ID           int32 `gorm:"primarykey" json:"id"`
+	PerusahaanID int32 `gorm:"unique;not null" json:"perusahaanId"`
 	Perusahaan   Perusahaan `json:"perusahaan,omitempty"`
 
 	B1R1 *string `gorm:"type:varchar(2)" json:"b1r1"`
@@ -430,13 +430,13 @@ type UpdatePrelistRequest struct {
 }
 
 type ApiLog struct {
-	ID             uint      `gorm:"primarykey" json:"id"`
+	ID        int32 `gorm:"primarykey" json:"id"`
 	Method         string    `gorm:"type:varchar(10);not null" json:"method"`
 	Path           string    `gorm:"type:varchar(500);not null" json:"path"`
 	StatusCode     int       `gorm:"not null" json:"statusCode"`
 	IP             *string   `gorm:"type:varchar(100)" json:"ip"`
 	UserAgent      *string   `gorm:"type:varchar(500)" json:"userAgent"`
-	AdminID        *uint     `json:"adminId"`
+	AdminID        *int32    `json:"adminId"`
 	ResponseTimeMs int       `gorm:"not null" json:"responseTimeMs"`
 	CreatedAt      time.Time `gorm:"index" json:"createdAt"`
 }

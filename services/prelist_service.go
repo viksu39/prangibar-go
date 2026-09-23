@@ -26,7 +26,7 @@ func (s *PrelistService) FindAll() ([]models.Perusahaan, error) {
 	return perusahaan, nil
 }
 
-func (s *PrelistService) FindOne(id uint) (*models.Perusahaan, error) {
+func (s *PrelistService) FindOne(id int32) (*models.Perusahaan, error) {
 	var perusahaan models.Perusahaan
 	if err := config.DB.First(&perusahaan, id).Error; err != nil {
 		return nil, err
@@ -41,7 +41,7 @@ func (s *PrelistService) Create(perusahaan *models.Perusahaan) (*models.Perusaha
 	return perusahaan, nil
 }
 
-func (s *PrelistService) Update(id uint, req models.UpdatePrelistRequest) (*models.Perusahaan, error) {
+func (s *PrelistService) Update(id int32, req models.UpdatePrelistRequest) (*models.Perusahaan, error) {
 	perusahaan, err := s.FindOne(id)
 	if err != nil {
 		return nil, err
@@ -84,7 +84,7 @@ func (s *PrelistService) Update(id uint, req models.UpdatePrelistRequest) (*mode
 	return perusahaan, nil
 }
 
-func (s *PrelistService) Delete(id uint) (*models.Perusahaan, error) {
+func (s *PrelistService) Delete(id int32) (*models.Perusahaan, error) {
 	perusahaan, err := s.FindOne(id)
 	if err != nil {
 		return nil, err
@@ -106,7 +106,7 @@ func (s *PrelistService) BulkGenerateToken() (map[string]interface{}, error) {
 	}
 
 	type Result struct {
-		ID    uint   `json:"id"`
+		ID    int32  `json:"id"`
 		Nama  string `json:"nama"`
 		Token string `json:"token"`
 		URL   string `json:"url"`

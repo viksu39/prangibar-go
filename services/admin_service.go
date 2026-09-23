@@ -27,7 +27,7 @@ func (s *AdminService) FindAll() ([]models.Admin, error) {
 	return admins, nil
 }
 
-func (s *AdminService) FindOne(id uint) (*models.Admin, error) {
+func (s *AdminService) FindOne(id int32) (*models.Admin, error) {
 	var admin models.Admin
 	if err := config.DB.First(&admin, id).Error; err != nil {
 		return nil, err
@@ -46,7 +46,7 @@ func (s *AdminService) Create(admin *models.Admin) (*models.Admin, error) {
 	return admin, nil
 }
 
-func (s *AdminService) Update(id uint, email, name, password string) (*models.Admin, error) {
+func (s *AdminService) Update(id int32, email, name, password string) (*models.Admin, error) {
 	admin, err := s.FindOne(id)
 	if err != nil {
 		return nil, err
@@ -72,7 +72,7 @@ func (s *AdminService) Update(id uint, email, name, password string) (*models.Ad
 	return admin, nil
 }
 
-func (s *AdminService) Delete(id uint) (*models.Admin, error) {
+func (s *AdminService) Delete(id int32) (*models.Admin, error) {
 	admin, err := s.FindOne(id)
 	if err != nil {
 		return nil, err

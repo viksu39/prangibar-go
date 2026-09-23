@@ -20,8 +20,8 @@ func APILogger() gin.HandlerFunc {
 		ip := getRealIP(c)
 		userAgent := c.Request.UserAgent()
 		adminID, _ := c.Get("adminID")
-		var adminIDPtr *uint
-		if id, ok := adminID.(uint); ok {
+		var adminIDPtr *int32
+		if id, ok := adminID.(int32); ok {
 			adminIDPtr = &id
 		}
 

@@ -12,13 +12,13 @@ import (
 )
 
 type Claims struct {
-	ID    uint   `json:"id"`
+	ID    int32   `json:"id"`
 	Email string `json:"email"`
 	Name  string `json:"name"`
 	jwt.RegisteredClaims
 }
 
-func GenerateToken(id uint, email, name string) (string, error) {
+func GenerateToken(id int32, email, name string) (string, error) {
 	claims := Claims{
 		ID:    id,
 		Email: email,

@@ -54,8 +54,8 @@ func (ctrl *AdminController) FindAll(c *gin.Context) {
 // @Router       /admin/me [get]
 func (ctrl *AdminController) GetMe(c *gin.Context) {
 	adminID, _ := c.Get("adminID")
-	id, _ := adminID.(uint)
-	admin, err := ctrl.adminService.FindOne(id)
+	id, _ := adminID.(int32)
+	admin, err := ctrl.adminService.FindOne(int32(id))
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Admin tidak ditemukan"})
 		return
@@ -72,7 +72,7 @@ func (ctrl *AdminController) GetMe(c *gin.Context) {
 // @Router       /admin/{id} [get]
 func (ctrl *AdminController) FindOne(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	admin, err := ctrl.adminService.FindOne(uint(id))
+	admin, err := ctrl.adminService.FindOne(int32(id))
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Admin tidak ditemukan"})
 		return
@@ -143,7 +143,7 @@ func (ctrl *AdminController) Update(c *gin.Context) {
 		hashedPassword = string(hashed)
 	}
 
-	updated, err := ctrl.adminService.Update(uint(id), req.Email, req.Name, hashedPassword)
+	updated, err := ctrl.adminService.Update(int32(id), req.Email, req.Name, hashedPassword)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Admin tidak ditemukan"})
 		return
@@ -161,7 +161,7 @@ func (ctrl *AdminController) Update(c *gin.Context) {
 // @Router       /admin/{id} [delete]
 func (ctrl *AdminController) Delete(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	deleted, err := ctrl.adminService.Delete(uint(id))
+	deleted, err := ctrl.adminService.Delete(int32(id))
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Admin tidak ditemukan"})
 		return

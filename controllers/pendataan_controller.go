@@ -84,7 +84,7 @@ func (ctrl *PendataanController) FindAll(c *gin.Context) {
 // @Router       /pendataan/{id} [get]
 func (ctrl *PendataanController) FindOne(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	pendataan, err := ctrl.pendataanService.FindOne(uint(id))
+	pendataan, err := ctrl.pendataanService.FindOne(int32(id))
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Pendataan tidak ditemukan"})
 		return

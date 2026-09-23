@@ -59,7 +59,7 @@ func (ctrl *PendataanMahasiswaController) GetPendataan(c *gin.Context) {
 // @Router       /pendataan-mahasiswa/{id} [get]
 func (ctrl *PendataanMahasiswaController) GetByID(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	data, err := ctrl.service.FindByID(uint(id))
+	data, err := ctrl.service.FindByID(int32(id))
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Data tidak ditemukan"})
 		return
@@ -188,7 +188,7 @@ func (ctrl *PendataanMahasiswaController) Submit(c *gin.Context) {
 // @Router       /pendataan-mahasiswa/{id} [delete]
 func (ctrl *PendataanMahasiswaController) Delete(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	if err := ctrl.service.Delete(uint(id)); err != nil {
+	if err := ctrl.service.Delete(int32(id)); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}

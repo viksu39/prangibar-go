@@ -7,7 +7,7 @@ import (
 )
 
 type PendataanMahasiswa struct {
-	ID        uint           `gorm:"primarykey" json:"id"`
+	ID        int32 `gorm:"primarykey" json:"id"`
 	Email     string         `gorm:"unique;not null;index" json:"email"`
 	NIK       string         `gorm:"unique;not null;index" json:"nik"`
 	PIN       string         `gorm:"not null" json:"-"`
@@ -19,8 +19,8 @@ type PendataanMahasiswa struct {
 	// Blok I: Keterangan Umum Keluarga
 	BlokI BlokIKeluarga `gorm:"embedded" json:"blokI"`
 
-	// Blok II: Keterangan Usaha/Perusahaan
-	BlokII BlokIIUsaha `gorm:"embedded" json:"blokII"`
+	// Blok II: Keterangan Usaha/Perusahaan (repeatable — one row per usaha)
+	BlokII []BlokIIBlock `gorm:"foreignKey:PendataanMahasiswaID" json:"blokII"`
 
 	// Blok III: Keterangan Sosial Ekonomi Anggota Keluarga
 	BlokIII []BlokIIIAnggotaKeluarga `gorm:"foreignKey:PendataanMahasiswaID" json:"blokIII"`
@@ -55,6 +55,7 @@ type BlokIKeluarga struct {
 	NamaJalan             string `json:"namaJalan"`
 	NomorRumah            string `json:"nomorRumah"`
 	AlamatSesuaiKK         *int   `json:"alamatSesuaiKK"` // 1: Ya, 2: Tidak
+	B1R14                  *int   `gorm:"column:b1r14" json:"b1r14"` // 1: Ya memiliki usaha, 2: Tidak
 }
 
 type BlokIIUsaha struct {
@@ -245,9 +246,18 @@ type BlokIIUsaha struct {
 	ModalTotalAwal        *float64 `gorm:"type:decimal(5,2)" json:"modalTotalAwal"`
 }
 
+// BlokIIBlock is one repeatable usaha row (has-many child of PendataanMahasiswa).
+// Embeds BlokIIUsaha so all rincian fields flatten into this table + JSON object.
+type BlokIIBlock struct {
+	ID                   int32 `gorm:"primarykey" json:"id"`
+	PendataanMahasiswaID int32 `gorm:"index" json:"pendataanMahasiswaId"`
+	NomorUsaha           string `json:"nomorUsaha"` // roster label "1","2",...
+	BlokIIUsaha          `gorm:"embedded"`
+}
+
 type BlokIIIAnggotaKeluarga struct {
-	ID                    uint   `gorm:"primarykey" json:"id"`
-	PendataanMahasiswaID  uint   `gorm:"index" json:"pendataanMahasiswaId"`
+	ID                   int32 `gorm:"primarykey" json:"id"`
+	PendataanMahasiswaID int32 `gorm:"index" json:"pendataanMahasiswaId"`
 	NomorUrut             string `json:"nomorUrut"`
 	NamaAnggota           string `json:"namaAnggota"`
 	NIKAnggota            string `json:"nikAnggota"`

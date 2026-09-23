@@ -57,7 +57,7 @@ func (s *PendataanService) FindAll() ([]models.Pendataan, error) {
 	return pendataan, nil
 }
 
-func (s *PendataanService) FindOne(id uint) (*models.Pendataan, error) {
+func (s *PendataanService) FindOne(id int32) (*models.Pendataan, error) {
 	var pendataan models.Pendataan
 	if err := config.DB.Preload("Perusahaan").First(&pendataan, id).Error; err != nil {
 		return nil, err

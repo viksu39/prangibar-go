@@ -55,7 +55,10 @@ func parseTrustedProxies() []string {
 func main() {
 	cfg := config.Load()
 	db := config.ConnectDB()
-	config.AutoMigrate(db)
+	if err := config.AutoMigrate(db); err != nil {
+		log.Fatal("AutoMigrate failed:", err)
+	}
+	log.Println("AutoMigrate OK")
 
 	seeders.SeedAdmin()
 	seeders.SeedWilayah()

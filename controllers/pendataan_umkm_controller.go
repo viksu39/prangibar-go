@@ -86,7 +86,7 @@ func (ctrl *PendataanUmkmController) FindAll(c *gin.Context) {
 // @Router       /pendataan-umkm/{id} [get]
 func (ctrl *PendataanUmkmController) FindOne(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	pendataan, err := ctrl.pendataanUmkmService.FindOne(uint(id))
+	pendataan, err := ctrl.pendataanUmkmService.FindOne(int32(id))
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Pendataan UMKM tidak ditemukan"})
 		return

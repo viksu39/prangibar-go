@@ -28,13 +28,19 @@ func SeedAdmin() {
 
 func SeedWilayah() {
 	var count int64
-	config.DB.Model(&models.Provinsi{}).Count(&count)
+	if err := config.DB.Model(&models.Provinsi{}).Count(&count).Error; err != nil {
+		log.Println("Wilayah seed skipped (table missing):", err)
+		return
+	}
 	if count > 0 {
 		return
 	}
 
 	provinsi := models.Provinsi{Kode: "12", Nama: "Sumatera Utara"}
-	config.DB.Create(&provinsi)
+	if err := config.DB.Create(&provinsi).Error; err != nil {
+		log.Println("Wilayah seed failed (provinsi):", err)
+		return
+	}
 
 	kabupatenKota := []models.KabupatenKota{
 		{Kode: "1201", Nama: "Kabupaten Nias", ProvinsiID: provinsi.ID},
@@ -71,7 +77,53 @@ func SeedWilayah() {
 		{Kode: "1277", Nama: "Kota Padang Sidempuan", ProvinsiID: provinsi.ID},
 		{Kode: "1278", Nama: "Kota Gunungsitoli", ProvinsiID: provinsi.ID},
 	}
-	config.DB.Create(&kabupatenKota)
+	if err := config.DB.Create(&kabupatenKota).Error; err != nil {
+		log.Println("Wilayah seed failed (kabupaten):", err)
+		return
+	}
+
+	seedKecamatanDesa(provinsi.ID)
 
 	log.Println("Wilayah seeded: 1 provinsi, 33 kabupaten/kota")
+}
+
+// seedKecamatanDesa fills sample kecamatan/desa so cascade dropdowns are not empty.
+// Replace with full BPS import when official data is available.
+func seedKecamatanDesa(provinsiID int32) {
+	var kabCount int64
+	if err := config.DB.Model(&models.KabupatenKota{}).Where("provinsiId = ?", provinsiID).Count(&kabCount).Error; err != nil || kabCount == 0 {
+		return
+	}
+
+	var kabs []models.KabupatenKota
+	config.DB.Where("provinsiId = ?", provinsiID).Order("kode ASC").Find(&kabs)
+
+	for _, kab := range kabs {
+		var kecCount int64
+		config.DB.Model(&models.Kecamatan{}).Where("kabupatenKotaId = ?", kab.ID).Count(&kecCount)
+		if kecCount > 0 {
+			continue
+		}
+
+		// Sample: 2 kecamatan per kabupaten/kota
+		kecs := []models.Kecamatan{
+			{Kode: kab.Kode + "01", Nama: "Kecamatan " + kab.Nama + " I", KabupatenKotaID: kab.ID},
+			{Kode: kab.Kode + "02", Nama: "Kecamatan " + kab.Nama + " II", KabupatenKotaID: kab.ID},
+		}
+		if err := config.DB.Create(&kecs).Error; err != nil {
+			log.Println("Wilayah seed failed (kecamatan", kab.Kode+"):", err)
+			continue
+		}
+
+		for _, kec := range kecs {
+			desa := []models.Desa{
+				{Kode: kec.Kode + "001", Nama: "Desa/Kelurahan A", KecamatanID: kec.ID},
+				{Kode: kec.Kode + "002", Nama: "Desa/Kelurahan B", KecamatanID: kec.ID},
+				{Kode: kec.Kode + "003", Nama: "Desa/Kelurahan C", KecamatanID: kec.ID},
+			}
+			if err := config.DB.Create(&desa).Error; err != nil {
+				log.Println("Wilayah seed failed (desa", kec.Kode+"):", err)
+			}
+		}
+	}
 }
